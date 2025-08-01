@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bal Sanskar School, Tiloniya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .bg-image {
+            background: url('bal-sanskar-accedamy-school-tiloniya-ajmer-schools-de5sna50lp.avif') no-repeat center center/cover;
+            height: 100vh;
+            position: relative;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .overlay {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+        }
+
+        .form-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 40px;
+            color: white;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in;
+        }
+
+        .school-name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .section-title {
+            margin-top: 80px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: #3498db;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            background: rgba(39, 174, 96, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(39, 174, 96, 0.5);
+            animation: slideIn 0.5s ease;
+        }
+
+        .btn-light,
+        .btn-success {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-light:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-success:hover {
+            background-color: #218c74;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        footer {
+            background: #2c3e50;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .form-select,
+        .form-control {
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus,
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .school-name {
+                font-size: 2rem;
+            }
+
+            .form-box {
+                padding: 20px;
+            }
+
+            .gallery img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-image">
+        <div class="overlay"></div>
+        <div class="container content">
+            <div class="school-name">Bal Sanskar School, Tiloniya</div>
+            <p class="lead">Empowering education for a brighter future</p>
+            <div class="form-box mt-4">
+                <h5 class="mb-4">Predict Student Fee</h5>
+                <form id="predictForm">
+                    <div class="mb-3">
+                        <label for="village" class="form-label">Village Name</label>
+                        <select class="form-select" id="village" required>
+                            <option value="" selected disabled>Select Village</option>
+                            <option selected>Select Village</option>
+                            <option value="Tiloniya">Tiloniya</option>
+                            <option value="Haramara">Haramara</option>
+                            <option value="Patan">Patan</option>
+                            <option value="Nalu">Nalu</option>
+                            <option value="Dindwara">Dindwara</option>
+                            <option value="Churli">Churli</option>
+                            <option value="Faloda">Faloda</option>
+                            <option value="Bhogiyavas">Bhogiyavas</option>
+                            <option value="Buharu">Buharu</option>
+                            <option value="Kankaniyavas">Kankaniyavas</option>
+                        </select>
+                        <div id="villageError" class="error-message"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="class" class="form-label">Class</label>
+                        <select class="form-select" id="class" required>
+                            <option value="" selected disabled>Select Class</option>
+                            <option value="1">Class 1</option>
+                            <option value="2">Class 2</option>
+                            <option value="3">Class 3</option>
+                            <option value="4">Class 4</option>
+                            <option value="5">Class 5</option>
+                            <option value="6">Class 6</option>
+                            <option value="7">Class 7</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                        </select>
+                        <div id="classError" class="error-message"></div>
+                    </div>
+                    <button type="submit" class="btn btn-light w-100">Predict Fee</button>
+                </form>
+                <div id="feeResult" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title text-center">Admission Details</h2>
+        <p class="text-center text-muted">Admissions are open for the academic session 2025–2026. Apply early to secure
+            your child’s place.</p>
+
+        <h2 class="section-title text-center">Admission Form</h2>
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label for="studentName" class="form-label">Student Name</label>
+                <input type="text" class="form-control" id="studentName">
+            </div>
+            <div class="col-md-6">
+                <label for="fatherName" class="form-label">Father's Name</label>
+                <input type="text" class="form-control" id="fatherName">
+            </div>
+            <div class="col-md-6">
+                <label for="motherName" class="form-label">Mother's Name</label>
+                <input type="text" class="form-control" id="motherName">
+            </div>
+            <div class="col-md-6">
+                <label for="aadhaar" class="form-label">Aadhaar Card Number</label>
+                <input type="text" pattern="\d{12}" maxlength="12" class="form-control" id="aadhaar">
+            </div>
+            <div class="col-md-6">
+                <label for="admissionClass" class="form-label">Admission Class</label>
+                <select class="form-select" id="admissionClass">
+                    <option selected disabled>Choose...</option>
+                    <option value="1">Class 1</option>
+                    <option value="2">Class 2</option>
+                    <option value="3">Class 3</option>
+                    <option value="4">Class 4</option>
+                    <option value="5">Class 5</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                    <option value="11">Class 11</option>
+                    <option value="12">Class 12</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-success w-100">Submit Admission</button>
+            </div>
+        </form>
+
+        <h2 class="section-title text-center">Gallery</h2>
+        <div class="row gallery g-3">
+            <div class="col-md-4"><img src="bal-sanskar-accedamy-school-tiloniya-ajmer-schools-upavxpk7on.jpg" alt="Gallery 1" />
+            </div>
+            <div class="col-md-4"><img src="bal-sanskar-accedamy-school-tiloniya-ajmer-schools-jyc7htr3el-250.webp" alt="Gallery 2" />
+            </div>
+            <div class="col-md-4"><img src="bal-sanskar-accedamy-school-tiloniya-ajmer-schools-29pscx0ktt.webp"
+                    alt="Gallery 3" /></div>
+        </div>
+
+        <h2 class="section-title text-center">Contact Us</h2>
+        <div class="text-center mb-4 text-muted">
+            <p><strong>Address:</strong> Bal Sanskar School, Tiloniya, Ajmer, Rajasthan - 305816</p>
+            <p><strong>Phone:</strong> +91-9876543210</p>
+            <p><strong>Email:</strong> balsanskar.tiloniya@gmail.com</p>
+        </div>
+
+        <h2 class="section-title text-center">Find Us on Map</h2>
+        <div class="map-container mb-5">
+            <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5141.844838559318!2d74.93493332561367!3d26.65529543415764!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396bf5dbbfffffff%3A0xf46a8b2bab6c85e4!2sBal%20Sanskar%20Academy%20School%20Tiloniya!5e0!3m2!1sen!2sin!4v1753961166436!5m2!1sen!2sin"
+                loading="lazy" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <footer class="text-center py-3 bg-dark text-white">
+        &copy; 2025 Bal Sanskar School, Tiloniya. All rights reserved.
+    </footer>
+
+    <script>
+        document.getElementById('predictForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.getElementById('villageError').textContent = '';
+            document.getElementById('classError').textContent = '';
+            document.getElementById('feeResult').textContent = '';
+
+            // Get form values
+            const village = document.getElementById('village').value;
+            const studentClass = parseInt(document.getElementById('class').value);
+
+            // Validate inputs
+            let isValid = true;
+            if (!village) {
+                document.getElementById('villageError').textContent = 'Please select a village';
+                isValid = false;
+            }
+            if (!studentClass) {
+                document.getElementById('classError').textContent = 'Please select a class';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Fee prediction logic from Jupyter Notebook
+            function predictFee(classNum, village) {
+                if (village === "Tiloniya") {
+                    return 8000 + (classNum - 1) * 500;
+                } else if (village === "Patan") {
+                    return 9000 + (classNum - 1) * 500;
+                } else if (village === "Haramara") {
+                    return 10000 + (classNum - 1) * 500;
+                } else {
+                    return 8000 + (classNum - 1) * 500 + 1000; // Default for other villages (e.g., Nalu, Dindwara, Faloda)
+                }
+            }
+
+            const predictedFee = predictFee(studentClass, village);
+
+            // Display result
+            document.getElementById('feeResult').innerHTML = `
+                <div class="success-message">
+                    <strong>Predicted Annual Fee for Class ${studentClass} from ${village}: ₹${predictedFee}</strong>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
