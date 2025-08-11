@@ -249,49 +249,49 @@
             your child’s place.</p>
 
         <h2 class="section-title text-center">Admission Form</h2>
-        <form class="row g-3">
-            <div class="col-md-6">
-                <label for="studentName" class="form-label">Student Name</label>
-                <input type="text" class="form-control" id="studentName">
-            </div>
-            <div class="col-md-6">
-                <label for="fatherName" class="form-label">Father's Name</label>
-                <input type="text" class="form-control" id="fatherName">
-            </div>
-            <div class="col-md-6">
-                <label for="motherName" class="form-label">Mother's Name</label>
-                <input type="text" class="form-control" id="motherName">
-            </div>
-            <div class="col-md-6">
-                <label for="aadhaar" class="form-label">Aadhaar Card Number</label>
-                <input type="text" pattern="\d{12}" maxlength="12" class="form-control" id="aadhaar">
-            </div>
-            <div class="col-md-6">
-                <label for="admissionClass" class="form-label">Admission Class</label>
-                <select class="form-select" id="admissionClass">
-                    <option selected disabled>Choose...</option>
-                    <option value="1">Class 1</option>
-                    <option value="2">Class 2</option>
-                    <option value="3">Class 3</option>
-                    <option value="4">Class 4</option>
-                    <option value="5">Class 5</option>
-                    <option value="6">Class 6</option>
-                    <option value="7">Class 7</option>
-                    <option value="8">Class 8</option>
-                    <option value="9">Class 9</option>
-                    <option value="10">Class 10</option>
-                    <option value="11">Class 11</option>
-                    <option value="12">Class 12</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address">
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-success w-100">Submit Admission</button>
-            </div>
-        </form>
+        <form class="row g-3" id="admissionForm">
+    <div class="col-md-6">
+        <label for="studentName" class="form-label">Student Name</label>
+        <input type="text" class="form-control" id="studentName" name="studentName" required>
+    </div>
+    <div class="col-md-6">
+        <label for="fatherName" class="form-label">Father's Name</label>
+        <input type="text" class="form-control" id="fatherName" name="fatherName" required>
+    </div>
+    <div class="col-md-6">
+        <label for="motherName" class="form-label">Mother's Name</label>
+        <input type="text" class="form-control" id="motherName" name="motherName" required>
+    </div>
+    <div class="col-md-6">
+        <label for="aadhaar" class="form-label">Aadhaar Card Number</label>
+        <input type="text" pattern="\d{12}" maxlength="12" class="form-control" id="aadhaar" name="aadhaar">
+    </div>
+    <div class="col-md-6">
+        <label for="admissionClass" class="form-label">Admission Class</label>
+        <select class="form-select" id="admissionClass" name="admissionClass">
+            <option selected disabled>Choose...</option>
+            <option value="1">Class 1</option>
+            <option value="2">Class 2</option>
+            <option value="3">Class 3</option>
+            <option value="4">Class 4</option>
+            <option value="5">Class 5</option>
+            <option value="6">Class 6</option>
+            <option value="7">Class 7</option>
+            <option value="8">Class 8</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" name="address">
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success w-100">Submit Admission</button>
+    </div>
+</form>
 
         <h2 class="section-title text-center">Gallery</h2>
         <div class="row gallery g-3">
@@ -371,6 +371,36 @@
             `;
         });
     </script>
+    <script>
+document.getElementById("admissionForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    fetch("https://formspree.io/f/manbakll", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            studentName: e.target.studentName.value,
+            fatherName: e.target.fatherName.value,
+            motherName: e.target.motherName.value,
+            aadhaar: e.target.aadhaar.value,
+            admissionClass: e.target.admissionClass.value,
+            address: e.target.address.value
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Form submitted successfully!");
+            e.target.reset();
+        } else {
+            alert("Error submitting form.");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Network error.");
+    });
+});
+</script>
 </body>
 
 </html>
