@@ -220,7 +220,6 @@
                         <label for="village" class="form-label">Village Name</label>
                         <select class="form-select" id="village" required>
                             <option value="" selected disabled>Select Village</option>
-                            <option selected>Select Village</option>
                             <option value="Tiloniya">Tiloniya</option>
                             <option value="Haramara">Haramara</option>
                             <option value="Patan">Patan</option>
@@ -265,21 +264,17 @@
                 <input type="text" pattern="\d{12}" maxlength="12" class="form-control" id="aadhaar" name="aadhaar">
             </div>
             <div class="col-md-6">
+                <label for="mediumType" class="form-label">Medium Type</label>
+                <select class="form-select" id="mediumType" name="mediumType" required>
+                    <option value="" selected disabled>Select Medium</option>
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+            </div>
+            <div class="col-md-6">
                 <label for="admissionClass" class="form-label">Admission Class</label>
-                <select class="form-select" id="admissionClass" name="admissionClass">
-                    <option selected disabled>Choose...</option>
-                    <option value="1">Class 1</option>
-                    <option value="2">Class 2</option>
-                    <option value="3">Class 3</option>
-                    <option value="4">Class 4</option>
-                    <option value="5">Class 5</option>
-                    <option value="6">Class 6</option>
-                    <option value="7">Class 7</option>
-                    <option value="8">Class 8</option>
-                    <option value="9">Class 9</option>
-                    <option value="10">Class 10</option>
-                    <option value="11">Class 11</option>
-                    <option value="12">Class 12</option>
+                <select class="form-select" id="admissionClass" name="admissionClass" required>
+                    <option value="" selected disabled>Choose...</option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -326,7 +321,7 @@
         const englishClasses = ["Nur", "LKG", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
         const hindiClasses = ["IX", "X", "XI", "XII"];
 
-        // Update class dropdown based on medium
+        // Update class dropdown for fee prediction form
         document.getElementById("medium").addEventListener("change", function () {
             const classSelect = document.getElementById("class");
             classSelect.innerHTML = '<option value="" selected disabled>Select Class</option>';
@@ -336,6 +331,19 @@
                 option.value = c;
                 option.textContent = c.startsWith("Nur") ? "Nursery" : c;
                 classSelect.appendChild(option);
+            });
+        });
+
+        // Update admission class dropdown based on medium type
+        document.getElementById("mediumType").addEventListener("change", function () {
+            const admissionClassSelect = document.getElementById("admissionClass");
+            admissionClassSelect.innerHTML = '<option value="" selected disabled>Choose...</option>';
+            let classes = this.value === "English" ? englishClasses : hindiClasses;
+            classes.forEach(c => {
+                let option = document.createElement("option");
+                option.value = c;
+                option.textContent = c.startsWith("Nur") ? "Nursery" : c === "LKG" ? "LKG" : `Class ${c}`;
+                admissionClassSelect.appendChild(option);
             });
         });
 
@@ -398,8 +406,7 @@
         </div>
     `;
         });
-    </script>
-    <script>
+
         document.getElementById("admissionForm").addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -411,6 +418,7 @@
                     fatherName: e.target.fatherName.value,
                     motherName: e.target.motherName.value,
                     aadhaar: e.target.aadhaar.value,
+                    mediumType: e.target.mediumType.value,
                     admissionClass: e.target.admissionClass.value,
                     address: e.target.address.value
                 })
