@@ -1,443 +1,823 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bal Sanskar School, Tiloniya</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
-    <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
+    <title>Aman Choudhary | Data Science Portfolio</title>
 
-        .bg-image {
-            background: url('2022-03.webp') no-repeat center center/cover;
-            height: 100vh;
-            position: relative;
-            color: white;
+    <!-- Favicon (AC logo) -->
+    <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <circle cx='50' cy='50' r='48' fill='#ff9800'/>
+      <text x='50%' y='58%' font-size='50' text-anchor='middle' fill='black'
+       font-family='Arial' font-weight='bold'>AC</text>
+    </svg>">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --bg-color: #05050b;
+            --bg-alt: #10101c;
+            --text-color: #f5f5f5;
+            --muted-text: #b0b0c3;
+            --accent: #ff9800;
+            --card-bg: #141424;
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+        body.light {
+            --bg-color: #f5f5f5;
+            --bg-alt: #ffffff;
+            --text-color: #1a1a1a;
+            --muted-text: #555;
+            --card-bg: #ffffff;
+            --border-color: rgba(0, 0, 0, 0.08);
+        }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            z-index: 9999;
+            background: #05050b;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             display: flex;
+            justify-content: center;
             align-items: center;
         }
-
-        .overlay {
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            padding: 30px;
-        }
-
-        .form-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 40px;
-            color: white;
-            max-width: 600px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-in;
-        }
-
-        .school-name {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .lead {
-            font-size: 1.2rem;
-            font-weight: 300;
-        }
-
-        .section-title {
-            margin-top: 80px;
-            margin-bottom: 30px;
-            font-weight: 600;
-            color: #2c3e50;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
+        .spinner {
+            border: 6px solid rgba(255,255,255,0.2);
+            border-top: 6px solid #ff9800;
             width: 60px;
-            height: 4px;
-            background: #3498db;
+            height: 60px;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            background: linear-gradient(
+                to right,
+                rgba(5, 5, 11, 0.9),
+                rgba(16, 16, 28, 0.9)
+            );
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-left { display: flex; align-items: center; gap: 10px; }
+        .logo span.badge {
+            background:#ff9800;
+            padding:6px 12px;
+            border-radius:8px;
+            color:#000;
+            font-weight:700;
+            letter-spacing:1px;
+        }
+        .nav-links { display: flex; gap: 20px; font-size: 15px; }
+        .nav-links a {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: "";
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0; bottom: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.2s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .theme-toggle {
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-color);
+            border-radius: 999px;
+            padding: 6px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
         }
 
-        .map-container {
-            width: 100%;
-            height: 400px;
-            border-radius: 15px;
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+        section { margin-bottom: 80px; }
+        .section-title { font-size: 26px; margin-bottom: 10px; }
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--muted-text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* Hero wrapper */
+        #home-wrapper {
+            position: relative;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: radial-gradient(circle at top left, #2d1555, #05050b);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            margin-bottom: 70px;
         }
-
-        .gallery img {
-            width: 100%;
-            height: 250px;
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        #home {
+            position: relative;
+            z-index: 1;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 40px 50px;
+            color: #fdfdfd;
+        }
+        .hero-inner {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .hero-left {
+            flex: 1 1 260px;
+            display: flex;
+            justify-content: center;
+        }
+        .profile-card {
+            background: rgba(10, 10, 31, 0.80);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 20px 22px 18px;
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-style: preserve-3d;
+            transform: perspective(900px) rotateY(0deg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, translate 0.4s ease;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+        }
+        .profile-card:hover {
+            transform: perspective(900px) rotateY(-8deg) translateY(-6px);
+            box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
+        }
+        .profile-img-wrap {
+            border-radius: 999px;
+            padding: 4px;
+            background: conic-gradient(from 140deg, #ff9800, #ff3d71, #18ffff, #ff9800);
+            margin-bottom: 10px;
+        }
+        .profile-img-wrap img {
+            width: 200px;
+            height: 200px;
+            border-radius: 999px;
             object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+            display: block;
+        }
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        .profile-role {
+            font-size: 13px;
+            color: #c4c4dd;
+            margin-bottom: 10px;
+        }
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin: 8px 0 14px;
+        }
+        .profile-tags span {
+            font-size: 11px;
+            border-radius: 999px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .profile-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .profile-socials a {
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 14px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .profile-socials a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .hero-right { flex: 2 1 340px; }
+        .hero-greeting {
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c1c1ec;
+        }
+        .hero-title {
+            font-size: 40px;
+            font-weight: 700;
+            margin: 10px 0 4px;
+        }
+        .hero-title span { color: var(--accent); }
+        .hero-typing {
+            font-size: 20px;
+            font-weight: 500;
+            color: #f5f5ff;
+            min-height: 28px;
+        }
+        .hero-typing span {
+            border-right: 2px solid #f5f5ff;
+            padding-right: 4px;
+        }
+        .hero-text {
+            margin-top: 18px;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 520px;
+            color: #d1d1e6;
+        }
+        .hero-buttons {
+            margin-top: 26px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .btn-primary,
+        .btn-ghost {
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #111;
+            font-weight: 600;
+        }
+        .btn-primary:hover { filter: brightness(1.05); }
+        .btn-ghost {
+            background: transparent;
+            color: #f5f5ff;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+        .btn-ghost:hover { background: rgba(0, 0, 0, 0.2); }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px 22px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+        }
+        .card h3 { margin-top: 0; margin-bottom: 8px; font-size: 18px; }
+        .card p { margin: 0; font-size: 14px; color: var(--muted-text); }
+        .pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 12px;
+            margin: 4px 4px 0 0;
         }
 
-        .gallery img:hover {
-            transform: scale(1.05);
+        .skills-group-title { font-size: 15px; margin-bottom: 6px; }
+        .skills-items span {
+            display: inline-block;
+            font-size: 13px;
+            margin: 2px 6px 2px 0;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid var(--border-color);
         }
 
-        .error-message {
-            color: #ff6b6b;
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
+        .contact-info p { margin: 4px 0; font-size: 14px; }
 
-        .success-message {
-            background: rgba(39, 174, 96, 0.2);
-            padding: 15px;
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            border: 1px solid rgba(39, 174, 96, 0.5);
-            animation: slideIn 0.5s ease;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            font-size: 14px;
         }
-
-        .btn-light,
-        .btn-success {
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .btn-light:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
-        }
-
-        .btn-success:hover {
-            background-color: #218c74;
-            transform: translateY(-2px);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #ff9800;
         }
 
         footer {
-            background: #2c3e50;
-            padding: 20px 0;
-            font-size: 0.9rem;
+            text-align: center;
+            padding: 16px 10px 26px;
+            font-size: 13px;
+            color: var(--muted-text);
         }
 
-        .form-select,
-        .form-control {
-            border-radius: 8px;
-            transition: border-color 0.3s ease;
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
-
-        .form-select:focus,
-        .form-control:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
-            .school-name {
-                font-size: 2rem;
-            }
-
-            .form-box {
-                padding: 20px;
-            }
-
-            .gallery img {
-                height: 200px;
-            }
+            nav { padding: 10px 18px; flex-wrap: wrap; gap: 10px; }
+            .nav-links { gap: 12px; font-size: 13px; }
+            #home { padding: 30px 20px 40px; }
+            .hero-title { font-size: 30px; }
+            .hero-inner { gap: 30px; }
+            .profile-card { width: 230px; }
         }
     </style>
 </head>
-
 <body>
-    <div class="bg-image">
-        <div class="overlay"></div>
-        <div class="container content">
-            <div class="school-name">Bal Sanskar School, Tiloniya</div>
-            <p class="lead">Empowering education for a brighter future</p>
-            <div class="form-box mt-4">
-                <h5 class="mb-4">Predict Student Fee</h5>
-                <form id="predictForm">
-                    <div class="mb-3">
-                        <label for="medium" class="form-label">Medium</label>
-                        <select class="form-select" id="medium" required>
-                            <option value="" selected disabled>Select Medium</option>
-                            <option value="English">English</option>
-                            <option value="Hindi">Hindi</option>
-                        </select>
-                        <div id="mediumError" class="error-message"></div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="class" class="form-label">Class</label>
-                        <select class="form-select" id="class" required>
-                            <option value="" selected disabled>Select Class</option>
-                        </select>
-                        <div id="classError" class="error-message"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="village" class="form-label">Village Name</label>
-                        <select class="form-select" id="village" required>
-                            <option value="" selected disabled>Select Village</option>
-                            <option value="Tiloniya">Tiloniya</option>
-                            <option value="Patan">Patan</option>
-                            <option value="Deendwara">Deendwara</option>
-                            <option value="Bargaon">Bargaon</option>
-                            <option value="Churli">Churli</option>
-                            <option value="Nalu">Nalu</option>
-                            <option value="Kakniyawas">Kakniyawas</option>
-                            <option value="Buharu">Buharu</option>
-                            <option value="Harmara">Harmara</option>
-                            <option value="Phaloda">Phaloda</option>
-                            <option value="Bhojiyawas">Bhojiyawas</option>
-                        </select>
-                        <div id="villageError" class="error-message"></div>
-                    </div>
-                    <button type="submit" class="btn btn-light w-100">Predict Fee</button>
-                </form>
-                <div id="feeResult" class="mt-4"></div>
-            </div>
-        </div>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="spinner"></div>
     </div>
 
-    <div class="container">
-        <h2 class="section-title text-center">Admission Details</h2>
-        <p class="text-center text-muted">Admissions are open for the academic session 2025–2026. Apply early to secure
-            your child’s place.</p>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-left">
+            <div class="logo">
+                <span class="badge">AC</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#home-wrapper">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button id="themeToggle" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <span>Dark</span>
+        </button>
+    </nav>
 
-        <h2 class="section-title text-center">Admission Form</h2>
-        <form class="row g-3" id="admissionForm">
-            <div class="col-md-6">
-                <label for="studentName" class="form-label">Student Name</label>
-                <input type="text" class="form-control" id="studentName" name="studentName" required>
-            </div>
-            <div class="col-md-6">
-                <label for="fatherName" class="form-label">Father's Name</label>
-                <input type="text" class="form-control" id="fatherName" name="fatherName" required>
-            </div>
-            <div class="col-md-6">
-                <label for="motherName" class="form-label">Mother's Name</label>
-                <input type="text" class="form-control" id="motherName" name="motherName" required>
-            </div>
-            <div class="col-md-6">
-                <label for="aadhaar" class="form-label">Aadhaar Card Number</label>
-                <input type="text" pattern="\d{12}" maxlength="12" class="form-control" id="aadhaar" name="aadhaar">
-            </div>
-            <div class="col-md-6">
-                <label for="mediumType" class="form-label">Medium Type</label>
-                <select class="form-select" id="mediumType" name="mediumType" required>
-                    <option value="" selected disabled>Select Medium</option>
-                    <option value="English">English</option>
-                    <option value="Hindi">Hindi</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="admissionClass" class="form-label">Admission Class</label>
-                <select class="form-select" id="admissionClass" name="admissionClass" required>
-                    <option value="" selected disabled>Choose...</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address">
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-success w-100">Submit Admission</button>
-            </div>
-        </form>
+    <main>
+        <!-- HERO + Animated Background -->
+        <div id="home-wrapper" class="reveal">
+            <canvas id="hero-canvas"></canvas>
+            <section id="home">
+                <div class="hero-inner">
+                    <!-- Left 3D Profile Card -->
+                    <div class="hero-left">
+                        <div class="profile-card">
+                            <div class="profile-img-wrap">
+                                <!-- Make sure profile.jpg exists next to index.html -->
+                                <img src="profile.jpg" alt="Aman Choudhary" loading="lazy" />
+                            </div>
+                            <div class="profile-name">Aman Choudhary</div>
+                            <div class="profile-role">Aspiring Data Scientist</div>
+                            <div class="profile-tags">
+                                <span>Python</span>
+                                <span>Machine Learning</span>
+                                <span>SQL</span>
+                            </div>
+                            <div class="profile-socials">
+                                <a href="https://github.com/amanchoudhary4717" title="GitHub" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/aman-choudhary-5362b6327" title="LinkedIn" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://instagram.com/_amanchoudhary17" title="Instagram" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-        <h2 class="section-title text-center">Gallery</h2>
-        <div class="row gallery g-3">
-            <div class="col-md-4"><img src="2022-03-09.webp"
-                    alt="Gallery 1" />
-            </div>
-            <div class="col-md-4"><img src="2023-01-05.webp"
-                    alt="Gallery 2" />
-            </div>
-            <div class="col-md-4"><img src="2023-01-05%20(1).webp"
-                    alt="Gallery 3" /></div>
+                    <!-- Right Text Side -->
+                    <div class="hero-right">
+                        <div class="hero-greeting">DATA • MACHINE LEARNING • ANALYTICS</div>
+                        <div class="hero-title">
+                            Hi, I'm <span>Aman Choudhary</span>
+                        </div>
+                        <div class="hero-typing">
+                            <span id="typingText"></span>
+                        </div>
+                        <p class="hero-text">
+                            I analyze data, build predictive machine learning models, and design
+                            clear visual stories. With strong foundations in Python, ML, SQL,
+                            and Power BI, I aim to solve real-world problems through 
+                            data-driven decision making.
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+                                <i class="fa-solid fa-diagram-project"></i>
+                                View Projects
+                            </button>
+                            <a href="Aman_Choudhary_Resume.docx" download class="btn-ghost">
+                                <i class="fa-regular fa-file-lines"></i>
+                                Download Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <h2 class="section-title text-center">Contact Us</h2>
-        <div class="text-center mb-4 text-muted">
-            <p><strong>Address:</strong> Bal Sanskar School, Tiloniya, Ajmer, Rajasthan - 305816</p>
-            <p><strong>Phone:</strong> +91-9982010684</p>
-            <p><strong>Email:</strong> bsatiloniya7706@gmail.com</p>
-        </div>
+        <!-- About -->
+        <section id="about" class="reveal">
+            <div class="section-subtitle">ABOUT</div>
+            <div class="section-title">Who I Am</div>
+            <div class="card">
+                <p>
+                    I'm a data science enthusiast currently pursuing <strong>B.Sc. B.Ed.</strong>,
+                    actively building expertise in Python, Machine Learning, SQL,
+                    data analysis, and visualization tools such as Power BI.
+                    I enjoy turning raw data into actionable insights and developing
+                    practical models that can be deployed in real-world scenarios.
+                </p>
+                <p style="margin-top: 12px;">
+                    My goal is to grow into a professional Data Scientist, working on
+                    challenging projects that combine analytical thinking, creativity,
+                    and impactful outcomes.
+                </p>
+            </div>
+        </section>
 
-        <h2 class="section-title text-center">Find Us on Map</h2>
-        <div class="map-container mb-5">
-            <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5141.844838559318!2d74.93493332561367!3d26.65529543415764!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396bf5dbbfffffff%3A0xf46a8b2bab6c85e4!2sBal%20Sanskar%20Academy%20School%20Tiloniya!5e0!3m2!1sen!2sin!4v1753961166436!5m2!1sen!2sin"
-                loading="lazy" allowfullscreen></iframe>
-        </div>
-    </div>
+        <!-- Skills -->
+        <section id="skills" class="reveal">
+            <div class="section-subtitle">SKILLS</div>
+            <div class="section-title">Technical & Soft Skills</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-group">
+                        <div class="skills-group-title">Programming Languages</div>
+                        <div class="skills-items">
+                            <span>Python</span>
+                            <span>SQL</span>
+                        </div>
+                    </div>
 
-    <footer class="text-center py-3 bg-dark text-white">
-        &copy; 2025 Bal Sanskar School, Tiloniya. All rights reserved.
+                    <div class="skills-group" style="margin-top: 12px;">
+                        <div class="skills-group-title">Machine Learning</div>
+                        <div class="skills-items">
+                            <span>Regression</span>
+                            <span>Classification</span>
+                            <span>Feature Engineering</span>
+                            <span>Model Evaluation</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group" style="margin-top: 12px;">
+                        <div class="skills-group-title">Data Analysis</div>
+                        <div class="skills-items">
+                            <span>EDA</span>
+                            <span>Data Cleaning</span>
+                            <span>Statistical Analysis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Tools & Soft Skills</h3>
+                    <div class="skills-group">
+                        <div class="skills-group-title">Libraries & Frameworks</div>
+                        <div class="skills-items">
+                            <span>NumPy</span>
+                            <span>Pandas</span>
+                            <span>Matplotlib</span>
+                            <span>Seaborn</span>
+                            <span>Scikit-Learn</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group" style="margin-top: 12px;">
+                        <div class="skills-group-title">Visualization & Tools</div>
+                        <div class="skills-items">
+                            <span>Power BI</span>
+                            <span>Jupyter Notebook</span>
+                            <span>Excel</span>
+                            <span>Git / GitHub</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group" style="margin-top: 12px;">
+                        <div class="skills-group-title">Soft Skills</div>
+                        <div class="skills-items">
+                            <span>Analytical Thinking</span>
+                            <span>Problem-Solving</span>
+                            <span>Critical Reasoning</span>
+                            <span>Attention to Detail</span>
+                            <span>Self-Learning</span>
+                            <span>Time Management</span>
+                            <span>Team Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="reveal">
+            <div class="section-subtitle">PROJECTS</div>
+            <div class="section-title">Featured Work</div>
+            <div class="grid-2">
+
+                <div class="card">
+                    <h3>Car Price Prediction</h3>
+                    <p>
+                        ML model predicting car prices using features like year, kilometers,
+                        fuel type, and brand. Includes EDA, feature engineering and model tuning.
+                    </p>
+                    <div style="margin-top: 10px;">
+                        <span class="pill">Python</span>
+                        <span class="pill">Pandas</span>
+                        <span class="pill">Scikit-Learn</span>
+                    </div>
+                    <a href="https://github.com/amanchoudhary4717/car-price-prediction"
+                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
+                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+                    </a>
+                </div>
+
+                <div class="card">
+                    <h3>Customer Churn Prediction</h3>
+                    <p>
+                        Classification model to identify customers likely to leave a service.
+                        Evaluated with accuracy, precision, recall and ROC-AUC.
+                    </p>
+                    <div style="margin-top: 10px;">
+                        <span class="pill">Classification</span>
+                        <span class="pill">EDA</span>
+                        <span class="pill">Model Evaluation</span>
+                    </div>
+                    <a href="https://github.com/amanchoudhary4717/customer-churn-prediction"
+                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
+                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+                    </a>
+                </div>
+
+                <div class="card">
+                    <h3>COVID-19 Death Prediction</h3>
+                    <p>
+                        Regression modelling on OWID dataset to predict daily deaths.
+                        Focus on data cleaning, feature selection and improving R².
+                    </p>
+                    <div style="margin-top: 10px;">
+                        <span class="pill">Regression</span>
+                        <span class="pill">Data Cleaning</span>
+                        <span class="pill">Visualization</span>
+                    </div>
+                    <a href="https://github.com/amanchoudhary4717/covid19-death-prediction"
+                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
+                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+                    </a>
+                </div>
+
+                <div class="card">
+                    <h3>Sales Dashboard (Power BI)</h3>
+                    <p>
+                        Interactive sales dashboard to monitor revenue, profit and region-wise performance.
+                        Helps stakeholders quickly track KPIs and trends.
+                    </p>
+                    <div style="margin-top: 10px;">
+                        <span class="pill">Power BI</span>
+                        <span class="pill">Data Visualization</span>
+                        <span class="pill">Business Insights</span>
+                    </div>
+                    <a href="https://github.com/amanchoudhary4717/powerbi-sales-dashboard"
+                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
+                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="reveal">
+            <div class="section-subtitle">CONTACT</div>
+            <div class="section-title">Let’s Connect</div>
+            <div class="grid-2">
+                <div class="card contact-info">
+                    <p>📍 Rajasthan, India</p>
+                    <p>📧 Email: <strong>abamanchoudhary4717@gmail.com</strong></p>
+                    <p>🐙 GitHub: <strong><a href="https://github.com/amanchoudhary4717" target="_blank">
+                        github.com/amanchoudhary4717</a></strong></p>
+                    <p>💼 LinkedIn: <strong><a href="https://www.linkedin.com/in/aman-choudhary-5362b6327"
+                        target="_blank">View Profile</a></strong></p>
+                    <p>📸 Instagram: <strong><a href="https://instagram.com/_amanchoudhary17" target="_blank">
+                        @_amanchoudhary17</a></strong></p>
+                    <p style="margin-top: 12px; color: var(--muted-text);">
+                        Open to internships, projects, and collaborations in Data Science,
+                        Machine Learning, and Analytics.
+                    </p>
+                </div>
+
+                <div class="card">
+    <h3>Send me a message</h3>
+
+    <form action="https://formsubmit.co/abamanchoudhary4717@gmail.com"
+          method="POST" class="contact-form">
+
+        <!-- REQUIRED FOR WORKING -->
+        <input type="hidden" name="_next" value="https://amanchoudhary4717.github.io/thankyou.html">
+        <input type="hidden" name="_subject" value="New Message From Your Portfolio!">
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+
+        <button type="submit" class="btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+    </form>
+</div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2025 Aman Choudhary · Built with 💻 & ☕
     </footer>
 
     <script>
-        const englishClasses = ["Nur", "LKG", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-        const hindiClasses = ["IX", "X", "XI", "XII"];
-
-        // Update class dropdown for fee prediction form
-        document.getElementById("medium").addEventListener("change", function () {
-            const classSelect = document.getElementById("class");
-            classSelect.innerHTML = '<option value="" selected disabled>Select Class</option>';
-            let classes = this.value === "English" ? englishClasses : hindiClasses;
-            classes.forEach(c => {
-                let option = document.createElement("option");
-                option.value = c;
-                option.textContent = c.startsWith("Nur") ? "Nursery" : c;
-                classSelect.appendChild(option);
-            });
+        // Loader fade-out
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 600);
         });
 
-        // Update admission class dropdown based on medium type
-        document.getElementById("mediumType").addEventListener("change", function () {
-            const admissionClassSelect = document.getElementById("admissionClass");
-            admissionClassSelect.innerHTML = '<option value="" selected disabled>Choose...</option>';
-            let classes = this.value === "English" ? englishClasses : hindiClasses;
-            classes.forEach(c => {
-                let option = document.createElement("option");
-                option.value = c;
-                option.textContent = c.startsWith("Nur") ? "Nursery" : c === "LKG" ? "LKG" : `Class ${c}`;
-                admissionClassSelect.appendChild(option);
-            });
-        });
+        // Typing animation
+        const titles = [
+            "Data Science Enthusiast",
+            "Machine Learning Practitioner",
+            "Aspiring Data Scientist",
+            "Data Analyst in Making"
+        ];
+        let titleIndex = 0;
+        let charIndex = 0;
+        const typingEl = document.getElementById("typingText");
 
-        document.getElementById('predictForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Clear previous errors
-            document.getElementById('villageError').textContent = '';
-            document.getElementById('classError').textContent = '';
-            document.getElementById('mediumError').textContent = '';
-            document.getElementById('feeResult').textContent = '';
-
-            const village = document.getElementById('village').value;
-            const medium = document.getElementById('medium').value;
-            const studentClass = document.getElementById('class').value;
-
-            let isValid = true;
-            if (!village) { document.getElementById('villageError').textContent = 'Please select a village'; isValid = false; }
-            if (!medium) { document.getElementById('mediumError').textContent = 'Please select a medium'; isValid = false; }
-            if (!studentClass) { document.getElementById('classError').textContent = 'Please select a class'; isValid = false; }
-            if (!isValid) return;
-
-            // Tiloniya base fees
-            const feeStructure = {
-                English: {
-                    "Nur": 8000, "LKG": 8000,
-                    "I": 10000, "II": 10000,
-                    "III": 12000, "IV": 12000,
-                    "V": 15000, "VI": 15000, "VII": 15000, "VIII": 15000,
-                    "IX": 15000, "X": 18000
-                },
-                Hindi: {
-                    "IX": 10000, "X": 14000,
-                    "XI": 10000, "XII": 14000
-                }
-            };
-
-            // Bus charges
-            const busCharges = {
-                "Nalu": 4000, "Kakniyawas": 4000, "Buharu": 4000,
-                "Harmara": 3000, "Bhojiyawas": 3000, "Phaloda": 3000,
-                "Deendwara": 5000, "Bargaon": 5000,
-                "Patan": 4000, "Churli": 4000
-            };
-
-            let baseFee = feeStructure[medium]?.[studentClass];
-            if (baseFee === undefined) {
-                document.getElementById('feeResult').innerHTML = `<div class="error-message">No fee data for selected class and medium</div>`;
-                return;
+        function typeTitle() {
+            if (!typingEl) return;
+            if (charIndex < titles[titleIndex].length) {
+                typingEl.textContent += titles[titleIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeTitle, 90);
+            } else {
+                setTimeout(eraseTitle, 1300);
             }
-
-            let totalFee = baseFee;
-            if (village !== "Tiloniya") {
-                totalFee += busCharges[village] || 0;
+        }
+        function eraseTitle() {
+            if (charIndex > 0) {
+                typingEl.textContent = titles[titleIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseTitle, 50);
+            } else {
+                titleIndex = (titleIndex + 1) % titles.length;
+                setTimeout(typeTitle, 250);
             }
-
-            document.getElementById('feeResult').innerHTML = `
-        <div class="success-message">
-            <strong>Predicted Annual Fee for ${medium} Medium, Class ${studentClass} from ${village}: ₹${totalFee}</strong>
-        </div>
-    `;
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            typeTitle();
         });
 
-        document.getElementById("admissionForm").addEventListener("submit", function (e) {
-            e.preventDefault();
+        // Dark / Light theme toggle
+        const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
 
-            fetch("https://formspree.io/f/manbakll", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    studentName: e.target.studentName.value,
-                    fatherName: e.target.fatherName.value,
-                    motherName: e.target.motherName.value,
-                    aadhaar: e.target.aadhaar.value,
-                    mediumType: e.target.mediumType.value,
-                    admissionClass: e.target.admissionClass.value,
-                    address: e.target.address.value
-                })
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Form submitted successfully!");
-                        e.target.reset();
-                    } else {
-                        alert("Error submitting form.");
+        function setTheme(mode) {
+            if (mode === "light") {
+                body.classList.add("light");
+                themeToggle.querySelector("i").className = "fa-regular fa-sun";
+                themeToggle.querySelector("span").textContent = "Light";
+            } else {
+                body.classList.remove("light");
+                themeToggle.querySelector("i").className = "fa-regular fa-moon";
+                themeToggle.querySelector("span").textContent = "Dark";
+            }
+            localStorage.setItem("theme", mode);
+        }
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+        themeToggle.addEventListener("click", () => {
+            const newTheme = body.classList.contains("light") ? "dark" : "light";
+            setTheme(newTheme);
+        });
+
+        // Reveal sections on scroll
+        const reveals = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
                     }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert("Network error.");
                 });
-        });
+            },
+            { threshold: 0.15 }
+        );
+        reveals.forEach((el) => observer.observe(el));
+
+        // Bubbles background on hero canvas
+        const canvas = document.getElementById("hero-canvas");
+        const ctx = canvas.getContext("2d");
+        let bubbles = [];
+        let cw, ch;
+
+        function initCanvas() {
+            cw = canvas.width = canvas.offsetWidth;
+            ch = canvas.height = canvas.offsetHeight;
+            bubbles = [];
+            for (let i = 0; i < 40; i++) {
+                bubbles.push({
+                    x: Math.random() * cw,
+                    y: Math.random() * ch,
+                    r: 3 + Math.random() * 6,
+                    vy: -0.3 - Math.random() * 0.7,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    alpha: 0.2 + Math.random() * 0.5
+                });
+            }
+        }
+        function draw() {
+            ctx.clearRect(0, 0, cw, ch);
+            bubbles.forEach((b) => {
+                ctx.beginPath();
+                const gradient = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+                gradient.addColorStop(0, `rgba(255,255,255,${b.alpha})`);
+                gradient.addColorStop(1, "rgba(255,255,255,0)");
+                ctx.fillStyle = gradient;
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fill();
+                b.y += b.vy;
+                b.x += b.vx;
+                if (b.y + b.r < 0) {
+                    b.y = ch + b.r;
+                    b.x = Math.random() * cw;
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+        window.addEventListener("resize", initCanvas);
+        initCanvas();
+        draw();
     </script>
 </body>
-
 </html>
