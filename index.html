@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,8 +15,7 @@
     </svg>">
 
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
         :root {
@@ -27,6 +27,7 @@
             --card-bg: #141424;
             --border-color: rgba(255, 255, 255, 0.08);
         }
+
         body.light {
             --bg-color: #f5f5f5;
             --bg-alt: #ffffff;
@@ -35,7 +36,12 @@
             --card-bg: #ffffff;
             --border-color: rgba(0, 0, 0, 0.08);
         }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -43,30 +49,40 @@
             color: var(--text-color);
             transition: background 0.3s ease, color 0.3s ease;
         }
-        a { color: inherit; text-decoration: none; }
 
-        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
         /* Loader */
         #loader {
             position: fixed;
             z-index: 9999;
             background: #05050b;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .spinner {
-            border: 6px solid rgba(255,255,255,0.2);
+            border: 6px solid rgba(255, 255, 255, 0.2);
             border-top: 6px solid #ff9800;
             width: 60px;
             height: 60px;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         /* Navbar */
         nav {
@@ -74,40 +90,57 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(16px);
-            background: linear-gradient(
-                to right,
-                rgba(5, 5, 11, 0.9),
-                rgba(16, 16, 28, 0.9)
-            );
+            background: linear-gradient(to right,
+                    rgba(5, 5, 11, 0.9),
+                    rgba(16, 16, 28, 0.9));
             border-bottom: 1px solid var(--border-color);
             padding: 10px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .nav-left { display: flex; align-items: center; gap: 10px; }
-        .logo span.badge {
-            background:#ff9800;
-            padding:6px 12px;
-            border-radius:8px;
-            color:#000;
-            font-weight:700;
-            letter-spacing:1px;
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .nav-links { display: flex; gap: 20px; font-size: 15px; }
+
+        .logo span.badge {
+            background: #ff9800;
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 15px;
+        }
+
         .nav-links a {
             position: relative;
             padding-bottom: 4px;
         }
+
         .nav-links a::after {
             content: "";
             position: absolute;
-            left: 0; bottom: 0;
-            width: 0; height: 2px;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
             background: var(--accent);
             transition: width 0.2s ease;
         }
-        .nav-links a:hover::after { width: 100%; }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         .theme-toggle {
             border: 1px solid var(--border-color);
             background: transparent;
@@ -120,25 +153,35 @@
             gap: 6px;
             font-size: 13px;
         }
+
+        /* LIGHT MODE THEME */
+        html.light-mode {
+            --bg: #ffffff;
+            --bg-alt: #f4f4f4;
+            --text-color: #000000;
+            --border-color: #d1d1d1;
+            --accent: #ff9800;
+        }
+
         /* Light Mode Navbar Fix */
-:root.light-mode {
-    --nav-bg: #ffffff;
-    --nav-text: #000000;
-    --nav-hover: #ff9800;
-}
+        html.light-mode nav {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-:root.light-mode nav {
-    background: var(--nav-bg) !important;
-    color: var(--nav-text) !important;
-}
+        html.light-mode .nav-links a {
+            color: #000 !important;
+        }
 
-:root.light-mode nav a {
-    color: var(--nav-text) !important;
-}
+        html.light-mode .nav-links a::after {
+            background: var(--accent);
+        }
 
-:root.light-mode nav a:hover {
-    color: var(--nav-hover) !important;
-}
+        html.light-mode .theme-toggle {
+            color: #000 !important;
+            border-color: #c1c1c1 !important;
+        }
+
 
 
         main {
@@ -146,8 +189,16 @@
             margin: 0 auto;
             padding: 40px 20px 60px;
         }
-        section { margin-bottom: 80px; }
-        .section-title { font-size: 26px; margin-bottom: 10px; }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
         .section-subtitle {
             font-size: 14px;
             color: var(--muted-text);
@@ -165,11 +216,13 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
             margin-bottom: 70px;
         }
+
         #hero-canvas {
             position: absolute;
             inset: 0;
             z-index: 0;
         }
+
         #home {
             position: relative;
             z-index: 1;
@@ -180,6 +233,7 @@
             padding: 40px 40px 50px;
             color: #fdfdfd;
         }
+
         .hero-inner {
             display: flex;
             gap: 50px;
@@ -187,11 +241,13 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .hero-left {
             flex: 1 1 260px;
             display: flex;
             justify-content: center;
         }
+
         .profile-card {
             background: rgba(10, 10, 31, 0.80);
             border-radius: 24px;
@@ -206,16 +262,19 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease, translate 0.4s ease;
             box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
         }
+
         .profile-card:hover {
             transform: perspective(900px) rotateY(-8deg) translateY(-6px);
             box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
         }
+
         .profile-img-wrap {
             border-radius: 999px;
             padding: 4px;
             background: conic-gradient(from 140deg, #ff9800, #ff3d71, #18ffff, #ff9800);
             margin-bottom: 10px;
         }
+
         .profile-img-wrap img {
             width: 200px;
             height: 200px;
@@ -223,16 +282,19 @@
             object-fit: cover;
             display: block;
         }
+
         .profile-name {
             font-size: 20px;
             font-weight: 600;
             margin-top: 6px;
         }
+
         .profile-role {
             font-size: 13px;
             color: #c4c4dd;
             margin-bottom: 10px;
         }
+
         .profile-tags {
             display: flex;
             flex-wrap: wrap;
@@ -240,17 +302,20 @@
             gap: 6px;
             margin: 8px 0 14px;
         }
+
         .profile-tags span {
             font-size: 11px;
             border-radius: 999px;
             padding: 4px 10px;
             background: rgba(255, 255, 255, 0.08);
         }
+
         .profile-socials {
             display: flex;
             gap: 12px;
             margin-top: 6px;
         }
+
         .profile-socials a {
             width: 30px;
             height: 30px;
@@ -262,33 +327,45 @@
             font-size: 14px;
             transition: background 0.2s ease, transform 0.2s ease;
         }
+
         .profile-socials a:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
-        .hero-right { flex: 2 1 340px; }
+
+        .hero-right {
+            flex: 2 1 340px;
+        }
+
         .hero-greeting {
             font-size: 15px;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: #c1c1ec;
         }
+
         .hero-title {
             font-size: 40px;
             font-weight: 700;
             margin: 10px 0 4px;
         }
-        .hero-title span { color: var(--accent); }
+
+        .hero-title span {
+            color: var(--accent);
+        }
+
         .hero-typing {
             font-size: 20px;
             font-weight: 500;
             color: #f5f5ff;
             min-height: 28px;
         }
+
         .hero-typing span {
             border-right: 2px solid #f5f5ff;
             padding-right: 4px;
         }
+
         .hero-text {
             margin-top: 18px;
             font-size: 15px;
@@ -296,12 +373,14 @@
             max-width: 520px;
             color: #d1d1e6;
         }
+
         .hero-buttons {
             margin-top: 26px;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .btn-primary,
         .btn-ghost {
             border-radius: 999px;
@@ -313,24 +392,33 @@
             cursor: pointer;
             border: none;
         }
+
         .btn-primary {
             background: var(--accent);
             color: #111;
             font-weight: 600;
         }
-        .btn-primary:hover { filter: brightness(1.05); }
+
+        .btn-primary:hover {
+            filter: brightness(1.05);
+        }
+
         .btn-ghost {
             background: transparent;
             color: #f5f5ff;
             border: 1px solid rgba(255, 255, 255, 0.35);
         }
-        .btn-ghost:hover { background: rgba(0, 0, 0, 0.2); }
+
+        .btn-ghost:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
 
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
         }
+
         .card {
             background: var(--card-bg);
             border-radius: 18px;
@@ -338,8 +426,19 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
         }
-        .card h3 { margin-top: 0; margin-bottom: 8px; font-size: 18px; }
-        .card p { margin: 0; font-size: 14px; color: var(--muted-text); }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted-text);
+        }
+
         .pill {
             display: inline-block;
             background: rgba(255, 255, 255, 0.08);
@@ -349,7 +448,102 @@
             margin: 4px 4px 0 0;
         }
 
-        .skills-group-title { font-size: 15px; margin-bottom: 6px; }
+        /* ==== Skills Section Upgrade ==== */
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            transition: 0.25s ease;
+            position: relative;
+        }
+
+        /* Floating hover effect */
+        .skill-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            border-color: var(--accent);
+        }
+
+        /* Section headings inside cards */
+        .skill-card h3 {
+            margin-bottom: 18px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Group styling */
+        .skills-group {
+            margin-bottom: 20px;
+        }
+
+        .skills-group-title {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--accent);
+        }
+
+        /* Skill Pills */
+        .skill-pill {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            margin: 4px 8px 4px 0;
+            font-size: 13px;
+            transition: 0.25s ease;
+            cursor: default;
+        }
+
+        /* Hover animation */
+        .skill-pill:hover {
+            background: var(--accent);
+            color: #000;
+            transform: scale(1.12);
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        /* Light Mode Fix */
+        html.light-mode .skill-pill {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: #bbbbbb;
+        }
+
+        html.light-mode .skill-pill:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        .skills-group-title {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
         .skills-items span {
             display: inline-block;
             font-size: 13px;
@@ -360,7 +554,117 @@
             border: 1px solid var(--border-color);
         }
 
-        .contact-info p { margin: 4px 0; font-size: 14px; }
+        .contact-info p {
+            margin: 4px 0;
+            font-size: 14px;
+        }
+
+        /* ==== PROJECTS SECTION ==== */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(16px);
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover effect */
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Header Icon */
+        .project-header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .project-icon {
+            font-size: 40px;
+            color: var(--accent);
+        }
+
+        /* Title */
+        .project-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        /* Description */
+        .project-card p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        /* Tech Tags */
+        .project-tags span {
+            display: inline-block;
+            padding: 5px 12px;
+            margin: 3px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 12px;
+            transition: 0.25s ease;
+        }
+
+        .project-tags span:hover {
+            background: var(--accent);
+            color: #000;
+            transform: scale(1.08);
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        /* GitHub Button */
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 12px;
+            padding: 10px 15px;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            color: var(--accent);
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .project-btn:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        /* Light Mode Fix */
+        html.light-mode .project-card {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        html.light-mode .project-tags span {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Tilt effect needs overflow hidden */
+        .project-card[data-tilt] {
+            transform-style: preserve-3d;
+        }
+
 
         .contact-form input,
         .contact-form textarea {
@@ -373,6 +677,7 @@
             margin-bottom: 12px;
             font-size: 14px;
         }
+
         .contact-form input:focus,
         .contact-form textarea:focus {
             outline: none;
@@ -391,21 +696,43 @@
             transform: translateY(40px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
+
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         @media (max-width: 768px) {
-            nav { padding: 10px 18px; flex-wrap: wrap; gap: 10px; }
-            .nav-links { gap: 12px; font-size: 13px; }
-            #home { padding: 30px 20px 40px; }
-            .hero-title { font-size: 30px; }
-            .hero-inner { gap: 30px; }
-            .profile-card { width: 230px; }
+            nav {
+                padding: 10px 18px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-links {
+                gap: 12px;
+                font-size: 13px;
+            }
+
+            #home {
+                padding: 30px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 30px;
+            }
+
+            .hero-inner {
+                gap: 30px;
+            }
+
+            .profile-card {
+                width: 230px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div id="loader">
@@ -456,7 +783,8 @@
                                 <a href="https://github.com/amanchoudhary4717" title="GitHub" target="_blank">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="https://www.linkedin.com/in/aman-choudhary-5362b6327" title="LinkedIn" target="_blank">
+                                <a href="https://www.linkedin.com/in/aman-choudhary-5362b6327" title="LinkedIn"
+                                    target="_blank">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
                                 <a href="https://instagram.com/_amanchoudhary17" title="Instagram" target="_blank">
@@ -478,15 +806,16 @@
                         <p class="hero-text">
                             I analyze data, build predictive machine learning models, and design
                             clear visual stories. With strong foundations in Python, ML, SQL,
-                            and Power BI, I aim to solve real-world problems through 
+                            and Power BI, I aim to solve real-world problems through
                             data-driven decision making.
                         </p>
                         <div class="hero-buttons">
-                            <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+                            <button class="btn-primary"
+                                onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
                                 <i class="fa-solid fa-diagram-project"></i>
                                 View Projects
                             </button>
-                            <a href="Aman Choudhary.docx" download class="btn-ghost">
+                            <a href="Aman_Choudhary.docx" download class="btn-ghost">
                                 <i class="fa-regular fa-file-lines"></i>
                                 Download Resume
                             </a>
@@ -520,152 +849,183 @@
         <section id="skills" class="reveal">
             <div class="section-subtitle">SKILLS</div>
             <div class="section-title">Technical & Soft Skills</div>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>Technical Skills</h3>
+
+            <div class="skills-container">
+
+                <!-- TECHNICAL SKILLS CARD -->
+                <div class="skill-card">
+                    <h3><i class="fa-solid fa-microchip"></i> Technical Skills</h3>
+
                     <div class="skills-group">
                         <div class="skills-group-title">Programming Languages</div>
                         <div class="skills-items">
-                            <span>Python</span>
-                            <span>SQL</span>
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">SQL</span>
                         </div>
                     </div>
 
-                    <div class="skills-group" style="margin-top: 12px;">
+                    <div class="skills-group">
                         <div class="skills-group-title">Machine Learning</div>
                         <div class="skills-items">
-                            <span>Regression</span>
-                            <span>Classification</span>
-                            <span>Feature Engineering</span>
-                            <span>Model Evaluation</span>
+                            <span class="skill-pill">Regression</span>
+                            <span class="skill-pill">Classification</span>
+                            <span class="skill-pill">Feature Engineering</span>
+                            <span class="skill-pill">Model Evaluation</span>
                         </div>
                     </div>
 
-                    <div class="skills-group" style="margin-top: 12px;">
+                    <div class="skills-group">
                         <div class="skills-group-title">Data Analysis</div>
                         <div class="skills-items">
-                            <span>EDA</span>
-                            <span>Data Cleaning</span>
-                            <span>Statistical Analysis</span>
+                            <span class="skill-pill">EDA</span>
+                            <span class="skill-pill">Data Cleaning</span>
+                            <span class="skill-pill">Statistical Analysis</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <h3>Tools & Soft Skills</h3>
+                <!-- TOOLS + SOFT SKILLS CARD -->
+                <div class="skill-card">
+                    <h3><i class="fa-solid fa-toolbox"></i> Tools & Soft Skills</h3>
+
                     <div class="skills-group">
                         <div class="skills-group-title">Libraries & Frameworks</div>
                         <div class="skills-items">
-                            <span>NumPy</span>
-                            <span>Pandas</span>
-                            <span>Matplotlib</span>
-                            <span>Seaborn</span>
-                            <span>Scikit-Learn</span>
+                            <span class="skill-pill">NumPy</span>
+                            <span class="skill-pill">Pandas</span>
+                            <span class="skill-pill">Matplotlib</span>
+                            <span class="skill-pill">Seaborn</span>
+                            <span class="skill-pill">Scikit-Learn</span>
                         </div>
                     </div>
 
-                    <div class="skills-group" style="margin-top: 12px;">
+                    <div class="skills-group">
                         <div class="skills-group-title">Visualization & Tools</div>
                         <div class="skills-items">
-                            <span>Power BI</span>
-                            <span>Jupyter Notebook</span>
-                            <span>Excel</span>
-                            <span>Git / GitHub</span>
+                            <span class="skill-pill">Power BI</span>
+                            <span class="skill-pill">Jupyter Notebook</span>
+                            <span class="skill-pill">Excel</span>
+                            <span class="skill-pill">Git / GitHub</span>
                         </div>
                     </div>
 
-                    <div class="skills-group" style="margin-top: 12px;">
+                    <div class="skills-group">
                         <div class="skills-group-title">Soft Skills</div>
                         <div class="skills-items">
-                            <span>Analytical Thinking</span>
-                            <span>Problem-Solving</span>
-                            <span>Critical Reasoning</span>
-                            <span>Attention to Detail</span>
-                            <span>Self-Learning</span>
-                            <span>Time Management</span>
-                            <span>Team Collaboration</span>
+                            <span class="skill-pill">Analytical Thinking</span>
+                            <span class="skill-pill">Problem-Solving</span>
+                            <span class="skill-pill">Critical Reasoning</span>
+                            <span class="skill-pill">Attention to Detail</span>
+                            <span class="skill-pill">Self-Learning</span>
+                            <span class="skill-pill">Time Management</span>
+                            <span class="skill-pill">Team Collaboration</span>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
+
 
         <!-- Projects -->
         <section id="projects" class="reveal">
             <div class="section-subtitle">PROJECTS</div>
             <div class="section-title">Featured Work</div>
-            <div class="grid-2">
 
-                <div class="card">
+            <div class="projects-grid">
+
+                <!-- PROJECT CARD -->
+                <div class="project-card" data-tilt>
+                    <div class="project-header">
+                        <i class="fa-solid fa-car-side project-icon"></i>
+                    </div>
                     <h3>Car Price Prediction</h3>
                     <p>
-                        ML model predicting car prices using features like year, kilometers,
-                        fuel type, and brand. Includes EDA, feature engineering and model tuning.
+                        ML model predicting car prices using year, brand, kilometers, fuel type & more.
+                        Includes full EDA, feature engineering and model optimization.
                     </p>
-                    <div style="margin-top: 10px;">
-                        <span class="pill">Python</span>
-                        <span class="pill">Pandas</span>
-                        <span class="pill">Scikit-Learn</span>
+
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>Scikit-Learn</span>
                     </div>
-                    <a href="https://github.com/amanchoudhary4717/car-price-prediction"
-                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
-                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+
+                    <a href="https://github.com/amanchoudhary4717/car-price-prediction" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> View on GitHub
                     </a>
                 </div>
 
-                <div class="card">
+                <div class="project-card" data-tilt>
+                    <div class="project-header">
+                        <i class="fa-solid fa-user-xmark project-icon"></i>
+                    </div>
                     <h3>Customer Churn Prediction</h3>
                     <p>
-                        Classification model to identify customers likely to leave a service.
-                        Evaluated with accuracy, precision, recall and ROC-AUC.
+                        Classification model predicting customer churn using contract type, tenure,
+                        charges & support features. Evaluated using accuracy, precision & recall.
                     </p>
-                    <div style="margin-top: 10px;">
-                        <span class="pill">Classification</span>
-                        <span class="pill">EDA</span>
-                        <span class="pill">Model Evaluation</span>
+
+                    <div class="project-tags">
+                        <span>Classification</span>
+                        <span>EDA</span>
+                        <span>Model Evaluation</span>
                     </div>
-                    <a href="https://github.com/amanchoudhary4717/customer-churn-prediction"
-                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
-                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+
+                    <a href="https://github.com/amanchoudhary4717/customer-churn-prediction" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> View on GitHub
                     </a>
                 </div>
 
-                <div class="card">
+                <div class="project-card" data-tilt>
+                    <div class="project-header">
+                        <i class="fa-solid fa-virus-covid project-icon"></i>
+                    </div>
                     <h3>COVID-19 Death Prediction</h3>
                     <p>
-                        Regression modelling on OWID dataset to predict daily deaths.
-                        Focus on data cleaning, feature selection and improving R².
+                        Regression model on OWID dataset predicting daily COVID-19 deaths.
+                        Includes data cleaning, visualization & feature engineering.
                     </p>
-                    <div style="margin-top: 10px;">
-                        <span class="pill">Regression</span>
-                        <span class="pill">Data Cleaning</span>
-                        <span class="pill">Visualization</span>
+
+                    <div class="project-tags">
+                        <span>Regression</span>
+                        <span>Data Cleaning</span>
+                        <span>Visualization</span>
                     </div>
-                    <a href="https://github.com/amanchoudhary4717/covid19-death-prediction"
-                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
-                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+
+                    <a href="https://github.com/amanchoudhary4717/covid19-death-prediction" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> View on GitHub
                     </a>
                 </div>
 
-                <div class="card">
+                <div class="project-card" data-tilt>
+                    <div class="project-header">
+                        <i class="fa-solid fa-chart-line project-icon"></i>
+                    </div>
                     <h3>Sales Dashboard (Power BI)</h3>
                     <p>
-                        Interactive sales dashboard to monitor revenue, profit and region-wise performance.
-                        Helps stakeholders quickly track KPIs and trends.
+                        Interactive Power BI dashboard to track revenue trends, region-wise
+                        performance, KPIs and business insights for stakeholders.
                     </p>
-                    <div style="margin-top: 10px;">
-                        <span class="pill">Power BI</span>
-                        <span class="pill">Data Visualization</span>
-                        <span class="pill">Business Insights</span>
+
+                    <div class="project-tags">
+                        <span>Power BI</span>
+                        <span>Data Visualization</span>
+                        <span>Insights</span>
                     </div>
-                    <a href="https://github.com/amanchoudhary4717/powerbi-sales-dashboard"
-                       target="_blank" style="display:flex;align-items:center;margin-top:12px;">
-                        <i class="fa-brands fa-github" style="margin-right:8px;"></i> View on GitHub
+
+                    <a href="https://github.com/amanchoudhary4717/powerbi-sales-dashboard" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> View on GitHub
                     </a>
                 </div>
 
             </div>
         </section>
+
 
         <!-- Contact -->
         <section id="contact" class="reveal">
@@ -676,11 +1036,11 @@
                     <p>📍 Rajasthan, India</p>
                     <p>📧 Email: <strong>abamanchoudhary4717@gmail.com</strong></p>
                     <p>🐙 GitHub: <strong><a href="https://github.com/amanchoudhary4717" target="_blank">
-                        github.com/amanchoudhary4717</a></strong></p>
+                                github.com/amanchoudhary4717</a></strong></p>
                     <p>💼 LinkedIn: <strong><a href="https://www.linkedin.com/in/aman-choudhary-5362b6327"
-                        target="_blank">View Profile</a></strong></p>
+                                target="_blank">View Profile</a></strong></p>
                     <p>📸 Instagram: <strong><a href="https://instagram.com/_amanchoudhary17" target="_blank">
-                        @_amanchoudhary17</a></strong></p>
+                                @_amanchoudhary17</a></strong></p>
                     <p style="margin-top: 12px; color: var(--muted-text);">
                         Open to internships, projects, and collaborations in Data Science,
                         Machine Learning, and Analytics.
@@ -688,25 +1048,25 @@
                 </div>
 
                 <div class="card">
-    <h3>Send me a message</h3>
+                    <h3>Send me a message</h3>
 
-    <form action="https://formsubmit.co/abamanchoudhary4717@gmail.com"
-          method="POST" class="contact-form">
+                    <form action="https://formsubmit.co/abamanchoudhary4717@gmail.com" method="POST"
+                        class="contact-form">
 
-        <!-- REQUIRED FOR WORKING -->
-        <input type="hidden" name="_next" value="https://amanchoudhary4717.github.io/thankyou.html">
-        <input type="hidden" name="_subject" value="New Message From Your Portfolio!">
-        <input type="hidden" name="_captcha" value="false">
+                        <!-- REQUIRED FOR WORKING -->
+                        <input type="hidden" name="_next" value="https://amanchoudhary4717.github.io/thankyou.html">
+                        <input type="hidden" name="_subject" value="New Message From Your Portfolio!">
+                        <input type="hidden" name="_captcha" value="false">
 
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
 
-        <button type="submit" class="btn-primary">
-            <i class="fa-solid fa-paper-plane"></i> Send Message
-        </button>
-    </form>
-</div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
 
             </div>
         </section>
@@ -762,6 +1122,12 @@
         // Dark / Light theme toggle
         const themeToggle = document.getElementById("themeToggle");
         const body = document.body;
+        const themeBtn = document.getElementById("themeToggle");
+
+        themeBtn.addEventListener("click", () => {
+            document.documentElement.classList.toggle("light-mode");
+        });
+
 
         function setTheme(mode) {
             if (mode === "light") {
@@ -803,6 +1169,9 @@
         let bubbles = [];
         let cw, ch;
 
+
+
+
         function initCanvas() {
             cw = canvas.width = canvas.offsetWidth;
             ch = canvas.height = canvas.offsetHeight;
@@ -841,9 +1210,17 @@
         initCanvas();
         draw();
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+
+    <script>
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 10,
+            speed: 300,
+            glare: true,
+            "max-glare": 0.2,
+        });
+    </script>
+
 </body>
+
 </html>
-
-
-
-
