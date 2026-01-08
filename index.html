@@ -731,6 +731,66 @@
             }
         }
     </style>
+    <style>
+/* Layout */
+#certificates {
+    padding: 40px 0;
+}
+
+.cert-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+
+/* Certificate badge */
+.cert-badge {
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.cert-badge.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cert-badge img {
+    width: 100%;
+    height: auto;
+    max-width: 160px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    background: white;
+}
+
+.cert-badge:hover {
+    transform: scale(1.05);
+}
+
+/* Full screen viewer */
+#cert-viewer {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Full size image */
+#cert-full {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+</style>
 </head>
 
 <body>
@@ -934,7 +994,35 @@
 
             </div>
         </section>
+<section id="certificates">
+    <h2>Certificates</h2>
 
+    <div class="cert-badge-grid">
+        <div class="cert-badge" onclick="openCert('assets/certificates/python_basic_page1.png')">
+            <img src="assets/certificates/python_basic_page1.png" alt="Python Basic">
+            <p>Python (Basic)</p>
+        </div>
+
+        <div class="cert-badge" onclick="openCert('assets/certificates/sql_basic_page1.png')">
+            <img src="assets/certificates/sql_basic_page1.png" alt="SQL Basic">
+            <p>SQL (Basic)</p>
+        </div>
+
+        <div class="cert-badge" onclick="openCert('assets/certificates/sql_intermediate_page1.png')">
+            <img src="assets/certificates/sql_intermediate_page1.png" alt="SQL Intermediate">
+            <p>SQL (Intermediate)</p>
+        </div>
+
+        <div class="cert-badge" onclick="openCert('assets/certificates/sql_advanced_page1.png')">
+            <img src="assets/certificates/sql_advanced_page1.png" alt="SQL Advanced">
+            <p>SQL (Advanced)</p>
+        </div>
+    </div>
+
+    <div id="cert-viewer" onclick="closeCert()">
+        <img id="cert-full" src="" alt="Certificate">
+    </div>
+</section>
 
         <!-- Projects -->
         <section id="projects" class="reveal">
@@ -1303,10 +1391,107 @@
             "max-glare": 0.2,
         });
     </script>
+    <script>
+/* Certificate images */
+let certImages = [
+    "assets/certificates/python_basic_page1.png",
+    "assets/certificates/sql_basic_page1.png",
+    "assets/certificates/sql_intermediate_page1.png",
+    "assets/certificates/sql_advanced_page1.png"
+];
+
+let currentIndex = 0;
+let slideshowInterval;
+let isSlideshowActive = false;
+
+const viewer = document.getElementById('cert-viewer');
+const fullImg = document.getElementById('cert-full');
+
+/* Open full-screen */
+function openCert(path) {
+    currentIndex = certImages.indexOf(path);
+    updateImage();
+    viewer.style.display = 'flex';
+    startSlideshow();
+}
+
+/* Close full-screen */
+function closeCert() {
+    viewer.style.display = 'none';
+    stopSlideshow();
+}
+
+/* Fade + update */
+function updateImage() {
+    fullImg.style.opacity = 0;
+    setTimeout(() => {
+        fullImg.src = certImages[currentIndex];
+        fullImg.style.opacity = 1;
+    }, 150);
+}
+
+/* Manual navigation */
+function nextCert() {
+    currentIndex = (currentIndex + 1) % certImages.length;
+    updateImage();
+}
+
+function prevCert() {
+    currentIndex = (currentIndex - 1 + certImages.length) % certImages.length;
+    updateImage();
+}
+
+/* Slideshow */
+function startSlideshow() {
+    if (isSlideshowActive) return;
+    isSlideshowActive = true;
+    slideshowInterval = setInterval(() => {
+        nextCert();
+    }, 4000);
+}
+
+function stopSlideshow() {
+    clearInterval(slideshowInterval);
+    isSlideshowActive = false;
+}
+
+/* Swipe logic */
+let startX = 0;
+
+viewer.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+});
+
+viewer.addEventListener('touchend', (e) => {
+    let endX = e.changedTouches[0].clientX;
+    let diff = endX - startX;
+
+    if (Math.abs(diff) > 50) {
+        stopSlideshow();
+        if (diff < 0) nextCert();
+        else prevCert();
+    }
+});
+
+/* Close on background tap */
+viewer.addEventListener('click', (e) => {
+    if (e.target === viewer) closeCert();
+});
+
+/* Scroll reveal animation */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.cert-badge').forEach(el => observer.observe(el));
+</script>
 
 </body>
 
 </html>
+
 
 
 
