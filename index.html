@@ -747,7 +747,7 @@
 /* Certificate badge */
 .cert-badge {
     cursor: pointer;
-    opacity: 0;
+    /* opacity: 0; */
     transform: translateY(30px);
     transition: all 0.6s ease-out;
 }
@@ -1000,10 +1000,11 @@
 
             </div>
         </section>
-<section id="certificates">
+        
+<section id="certificates" >
     <h2>Certificates</h2>
 
-    <div class="cert-badge-grid">
+    <div class="cert-badge-grid" >
         <div class="cert-badge" onclick="openCert('python_basic_page1.png')">
             <img src="python_basic_page1.png" alt="Python Basic">
             <p>Python (Basic)</p>
@@ -1349,7 +1350,6 @@
 
 
 
-
         function initCanvas() {
             cw = canvas.width = canvas.offsetWidth;
             ch = canvas.height = canvas.offsetHeight;
@@ -1413,6 +1413,8 @@ let isSlideshowActive = false;
 
 const viewer = document.getElementById('cert-viewer');
 const fullImg = document.getElementById('cert-full');
+
+
 
 /* Open full-screen */
 function openCert(path) {
@@ -1486,13 +1488,13 @@ viewer.addEventListener('click', (e) => {
 });
 
 /* Scroll reveal animation */
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-}, { threshold: 0.2 });
+// const observer = new IntersectionObserver((entries) => {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) entry.target.classList.add('visible');
+//     });
+// }, { threshold: 0.2 });
 
-document.querySelectorAll('.cert-badge').forEach(el => observer.observe(el));
+// document.querySelectorAll('.cert-badge').forEach(el => observer.observe(el));
 </script>
 
 </body>
