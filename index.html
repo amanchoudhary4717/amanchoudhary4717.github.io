@@ -731,6 +731,7 @@
             }
         }
     </style>
+    
     <style>
 /* Layout */
 #certificates {
@@ -795,6 +796,57 @@
     filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.7));
     transition: transform 0.3s ease, filter 0.3s ease;
 }
+        .cert-card {
+  width: 300px;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(9px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-align: center;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.cert-card img {
+  width: 95px;
+  margin-bottom: 15px;
+}
+
+.cert-card h3 {
+  margin: 6px 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+.cert-card p {
+  font-size: 14px;
+  color: #ddd;
+  margin: 6px 0;
+}
+
+.cert-card .cert-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #ffa116;
+  color: #121212;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background .25s ease;
+}
+
+.cert-card .cert-link:hover {
+  background: #ff9c00;
+  color: #000;
+}
+
+.cert-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
 
 </style>
 </head>
@@ -816,6 +868,7 @@
             <a href="#home-wrapper">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
+            <a href="#certificates">Certificates</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </div>
@@ -1034,6 +1087,19 @@
         <img id="cert-full" src="" alt="Certificate">
     </div>
 </section>
+        <div class="cert-card" data-aos="zoom-in">
+  <img src="leet150.png" alt="LeetCode Top Interview 150">
+  <h3>Top Interview 150</h3>
+  <p>LeetCode</p>
+  <p>
+    Completed 150 curated interview problems used by major tech companies.
+    Strong focus on data structures and algorithms.
+  </p>
+  <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
+    View Profile
+  </a>
+</div>
+
 
         <!-- Projects -->
         <section id="projects" class="reveal">
@@ -1505,6 +1571,7 @@ viewer.addEventListener('click', (e) => {
 </body>
 
 </html>
+
 
 
 
