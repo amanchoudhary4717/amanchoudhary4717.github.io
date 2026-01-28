@@ -1562,18 +1562,16 @@
         window.addEventListener("resize", initCanvas);
         initCanvas();
         draw();
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js">
 
-    <script>
+
         VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
             max: 10,
             speed: 300,
             glare: true,
             "max-glare": 0.2,
         });
-    </script>
-    <script>
+
 /* Certificate images */
 let certImages = [
     "python_basic_page1.png",
@@ -1676,7 +1674,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = certSection.querySelectorAll(".cert-card");
   const titles = certSection.querySelectorAll("h3");
 
-<script>
 /* =====================================
    CERTIFICATES – VISIBILITY FIX
 ===================================== */
@@ -1709,7 +1706,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   revealObserver.observe(certSection, { attributes: true });
 });
-</script>
 
 
   /* ---------- Hover Glow (Mouse Tracking) ---------- */
@@ -1813,6 +1809,7 @@ viewer?.addEventListener("click", e => {
 </body>
 
 </html>
+
 
 
 
