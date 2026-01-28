@@ -1430,385 +1430,248 @@
     </footer>
 
     <script>
-        // Loader fade-out
-        window.addEventListener("load", () => {
-            const loader = document.getElementById("loader");
-            loader.style.opacity = "0";
-            setTimeout(() => loader.style.display = "none", 600);
-        });
+/* =====================================
+   GLOBAL DOM READY
+===================================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-        // Typing animation
-        const titles = [
-            "Data Science Enthusiast",
-            "Machine Learning Specialist",
-            "SQL Developer",
-            "Data Analyst",
-            "Deep Learning Engineer"
-        ];
-        let titleIndex = 0;
-        let charIndex = 0;
-        const typingEl = document.getElementById("typingText");
+  /* =====================================
+     LOADER
+  ===================================== */
+  const loader = document.getElementById("loader");
+  if (loader) {
+    window.addEventListener("load", () => {
+      loader.style.opacity = "0";
+      setTimeout(() => (loader.style.display = "none"), 600);
+    });
+  }
 
-        function typeTitle() {
-            if (!typingEl) return;
-            if (charIndex < titles[titleIndex].length) {
-                typingEl.textContent += titles[titleIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeTitle, 90);
-            } else {
-                setTimeout(eraseTitle, 1300);
-            }
+  /* =====================================
+     TYPING ANIMATION
+  ===================================== */
+  const typingEl = document.getElementById("typingText");
+  const titles = [
+    "Data Science Enthusiast",
+    "Machine Learning Specialist",
+    "SQL Developer",
+    "Data Analyst",
+    "Deep Learning Engineer"
+  ];
+
+  let titleIndex = 0;
+  let charIndex = 0;
+
+  function typeTitle() {
+    if (!typingEl) return;
+
+    if (charIndex < titles[titleIndex].length) {
+      typingEl.textContent += titles[titleIndex][charIndex++];
+      setTimeout(typeTitle, 90);
+    } else {
+      setTimeout(eraseTitle, 1200);
+    }
+  }
+
+  function eraseTitle() {
+    if (charIndex > 0) {
+      typingEl.textContent = titles[titleIndex].slice(0, --charIndex);
+      setTimeout(eraseTitle, 50);
+    } else {
+      titleIndex = (titleIndex + 1) % titles.length;
+      setTimeout(typeTitle, 300);
+    }
+  }
+
+  typeTitle();
+
+  /* =====================================
+     THEME TOGGLE (CLEAN + PERSISTENT)
+  ===================================== */
+  const themeToggle = document.getElementById("themeToggle");
+  const body = document.body;
+
+  function setTheme(mode) {
+    body.classList.toggle("light", mode === "light");
+    localStorage.setItem("theme", mode);
+
+    const icon = themeToggle?.querySelector("i");
+    const text = themeToggle?.querySelector("span");
+
+    if (icon && text) {
+      icon.className = mode === "light"
+        ? "fa-regular fa-sun"
+        : "fa-regular fa-moon";
+      text.textContent = mode === "light" ? "Light" : "Dark";
+    }
+  }
+
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  setTheme(savedTheme);
+
+  themeToggle?.addEventListener("click", () => {
+    setTheme(body.classList.contains("light") ? "dark" : "light");
+  });
+
+  /* =====================================
+     SCROLL REVEAL
+  ===================================== */
+  const reveals = document.querySelectorAll(".reveal");
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
         }
-        function eraseTitle() {
-            if (charIndex > 0) {
-                typingEl.textContent = titles[titleIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(eraseTitle, 50);
-            } else {
-                titleIndex = (titleIndex + 1) % titles.length;
-                setTimeout(typeTitle, 250);
-            }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  reveals.forEach(el => revealObserver.observe(el));
+
+  /* =====================================
+     HERO CANVAS BUBBLES
+  ===================================== */
+  const canvas = document.getElementById("hero-canvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    let bubbles = [];
+    let cw, ch;
+
+    function initCanvas() {
+      cw = canvas.width = canvas.offsetWidth;
+      ch = canvas.height = canvas.offsetHeight;
+      bubbles = Array.from({ length: 40 }, () => ({
+        x: Math.random() * cw,
+        y: Math.random() * ch,
+        r: 3 + Math.random() * 6,
+        vy: -0.3 - Math.random() * 0.7,
+        vx: (Math.random() - 0.5) * 0.3,
+        alpha: 0.2 + Math.random() * 0.5
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, cw, ch);
+      bubbles.forEach(b => {
+        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+        g.addColorStop(0, `rgba(255,255,255,${b.alpha})`);
+        g.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        b.x += b.vx;
+        b.y += b.vy;
+        if (b.y + b.r < 0) {
+          b.y = ch + b.r;
+          b.x = Math.random() * cw;
         }
-        document.addEventListener("DOMContentLoaded", () => {
-            typeTitle();
-        });
+      });
+      requestAnimationFrame(draw);
+    }
 
-        // Dark / Light theme toggle
-        const themeToggle = document.getElementById("themeToggle");
-        const body = document.body;
-        const themeBtn = document.getElementById("themeToggle");
+    window.addEventListener("resize", initCanvas);
+    initCanvas();
+    draw();
+  }
 
-        themeBtn.addEventListener("click", () => {
-            document.documentElement.classList.toggle("light-mode");
-        });
+  /* =====================================
+     VANILLA TILT
+  ===================================== */
+  if (window.VanillaTilt) {
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+      max: 10,
+      speed: 300,
+      glare: true,
+      "max-glare": 0.2
+    });
+  }
 
-
-        function setTheme(mode) {
-            if (mode === "light") {
-                body.classList.add("light");
-                themeToggle.querySelector("i").className = "fa-regular fa-sun";
-                themeToggle.querySelector("span").textContent = "Light";
-            } else {
-                body.classList.remove("light");
-                themeToggle.querySelector("i").className = "fa-regular fa-moon";
-                themeToggle.querySelector("span").textContent = "Dark";
-            }
-            localStorage.setItem("theme", mode);
-        }
-        const savedTheme = localStorage.getItem("theme") || "dark";
-        setTheme(savedTheme);
-        themeToggle.addEventListener("click", () => {
-            const newTheme = body.classList.contains("light") ? "dark" : "light";
-            setTheme(newTheme);
-        });
-
-        // Reveal sections on scroll
-        const reveals = document.querySelectorAll(".reveal");
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.15 }
-        );
-        reveals.forEach((el) => observer.observe(el));
-
-        // Bubbles background on hero canvas
-        const canvas = document.getElementById("hero-canvas");
-        const ctx = canvas.getContext("2d");
-        let bubbles = [];
-        let cw, ch;
-
-
-
-        function initCanvas() {
-            cw = canvas.width = canvas.offsetWidth;
-            ch = canvas.height = canvas.offsetHeight;
-            bubbles = [];
-            for (let i = 0; i < 40; i++) {
-                bubbles.push({
-                    x: Math.random() * cw,
-                    y: Math.random() * ch,
-                    r: 3 + Math.random() * 6,
-                    vy: -0.3 - Math.random() * 0.7,
-                    vx: (Math.random() - 0.5) * 0.3,
-                    alpha: 0.2 + Math.random() * 0.5
-                });
-            }
-        }
-        function draw() {
-            ctx.clearRect(0, 0, cw, ch);
-            bubbles.forEach((b) => {
-                ctx.beginPath();
-                const gradient = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-                gradient.addColorStop(0, `rgba(255,255,255,${b.alpha})`);
-                gradient.addColorStop(1, "rgba(255,255,255,0)");
-                ctx.fillStyle = gradient;
-                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-                ctx.fill();
-                b.y += b.vy;
-                b.x += b.vx;
-                if (b.y + b.r < 0) {
-                    b.y = ch + b.r;
-                    b.x = Math.random() * cw;
-                }
-            });
-            requestAnimationFrame(draw);
-        }
-        window.addEventListener("resize", initCanvas);
-        initCanvas();
-        draw();
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js">
-
-
-        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-            max: 10,
-            speed: 300,
-            glare: true,
-            "max-glare": 0.2,
-        });
-
-/* Certificate images */
-let certImages = [
+  /* =====================================
+     CERTIFICATES VIEWER
+  ===================================== */
+  const certImages = [
     "python_basic_page1.png",
     "sql_basic_page1.png",
     "sql_intermediate_page1.png",
     "sql_advanced_page1.png",
     "Deloite_certificate_page_1.png"
-];
+  ];
 
-let currentIndex = 0;
-let slideshowInterval;
-let isSlideshowActive = false;
+  let currentIndex = 0;
+  let slideshowTimer;
 
-const viewer = document.getElementById('cert-viewer');
-const fullImg = document.getElementById('cert-full');
+  const viewer = document.getElementById("cert-viewer");
+  const fullImg = document.getElementById("cert-full");
 
-
-
-/* Open full-screen */
-function openCert(path) {
-    currentIndex = certImages.indexOf(path);
+  window.openCert = function (path) {
+    currentIndex = Math.max(certImages.indexOf(path), 0);
+    viewer.style.display = "flex";
     updateImage();
-    viewer.style.display = 'flex';
     startSlideshow();
-}
+  };
 
-/* Close full-screen */
-function closeCert() {
-    viewer.style.display = 'none';
+  window.closeCert = function () {
+    viewer.style.display = "none";
     stopSlideshow();
-}
+  };
 
-/* Fade + update */
-function updateImage() {
+  function updateImage() {
     fullImg.style.opacity = 0;
     setTimeout(() => {
-        fullImg.src = certImages[currentIndex];
-        fullImg.style.opacity = 1;
-    }, 150);
-}
+      fullImg.src = certImages[currentIndex];
+      fullImg.style.opacity = 1;
+    }, 180);
+  }
 
-/* Manual navigation */
-function nextCert() {
+  window.nextCert = function () {
     currentIndex = (currentIndex + 1) % certImages.length;
     updateImage();
-}
+  };
 
-function prevCert() {
-    currentIndex = (currentIndex - 1 + certImages.length) % certImages.length;
+  window.prevCert = function () {
+    currentIndex =
+      (currentIndex - 1 + certImages.length) % certImages.length;
     updateImage();
-}
+  };
 
-/* Slideshow */
-function startSlideshow() {
-    if (isSlideshowActive) return;
-    isSlideshowActive = true;
-    slideshowInterval = setInterval(() => {
-        nextCert();
-    }, 4000);
-}
-
-function stopSlideshow() {
-    clearInterval(slideshowInterval);
-    isSlideshowActive = false;
-}
-
-/* Swipe logic */
-let startX = 0;
-
-viewer.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-});
-
-viewer.addEventListener('touchend', (e) => {
-    let endX = e.changedTouches[0].clientX;
-    let diff = endX - startX;
-
-    if (Math.abs(diff) > 50) {
-        stopSlideshow();
-        if (diff < 0) nextCert();
-        else prevCert();
-    }
-});
-
-/* Close on background tap */
-viewer.addEventListener('click', (e) => {
-    if (e.target === viewer) closeCert();
-});
-
-
-/* =====================================
-   CERTIFICATES – FINAL SCRIPT
-===================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-  const certSection = document.querySelector("#certificates");
-  if (!certSection) return;
-
-  const badges = certSection.querySelectorAll(".cert-badge");
-  const cards = certSection.querySelectorAll(".cert-card");
-  const titles = certSection.querySelectorAll("h3");
-
-/* =====================================
-   CERTIFICATES – VISIBILITY FIX
-===================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-  const certSection = document.getElementById("certificates");
-  if (!certSection) return;
-
-  const badges = certSection.querySelectorAll(".cert-badge");
-  const cards = certSection.querySelectorAll(".cert-card");
-  const titles = certSection.querySelectorAll("h3");
-
-  const revealObserver = new MutationObserver(() => {
-    if (!certSection.classList.contains("visible")) return;
-
-    titles.forEach((el, i) => {
-      setTimeout(() => el.classList.add("show"), i * 120);
-    });
-
-    badges.forEach((badge, i) => {
-      setTimeout(() => badge.classList.add("show"), i * 100);
-    });
-
-    cards.forEach((card, i) => {
-      setTimeout(() => card.classList.add("show"), i * 120);
-    });
-
-    revealObserver.disconnect();
-  });
-
-  revealObserver.observe(certSection, { attributes: true });
-});
-
-
-  /* ---------- Hover Glow (Mouse Tracking) ---------- */
-  cards.forEach(card => {
-    card.addEventListener("mousemove", e => {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty("--x", `${e.clientX - rect.left}px`);
-      card.style.setProperty("--y", `${e.clientY - rect.top}px`);
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.setProperty("--x", `50%`);
-      card.style.setProperty("--y", `50%`);
-    });
-  });
-});
-
-/* =====================================
-   CERTIFICATE FULLSCREEN VIEWER
-===================================== */
-
-const certImages = [
-  "python_basic_page1.png",
-  "sql_basic_page1.png",
-  "sql_intermediate_page1.png",
-  "sql_advanced_page1.png",
-  "Deloite_certificate_page_1.png"
-];
-
-let currentIndex = 0;
-let slideshowTimer = null;
-
-const viewer = document.getElementById("cert-viewer");
-const fullImg = document.getElementById("cert-full");
-
-function openCert(path) {
-  currentIndex = certImages.indexOf(path);
-  if (currentIndex < 0) currentIndex = 0;
-
-  viewer.style.display = "flex";
-  updateCertImage();
-  startSlideshow();
-}
-
-function closeCert() {
-  viewer.style.display = "none";
-  stopSlideshow();
-}
-
-function updateCertImage() {
-  fullImg.style.opacity = 0;
-  setTimeout(() => {
-    fullImg.src = certImages[currentIndex];
-    fullImg.style.opacity = 1;
-  }, 180);
-}
-
-function nextCert() {
-  currentIndex = (currentIndex + 1) % certImages.length;
-  updateCertImage();
-}
-
-function prevCert() {
-  currentIndex = (currentIndex - 1 + certImages.length) % certImages.length;
-  updateCertImage();
-}
-
-function startSlideshow() {
-  stopSlideshow();
-  slideshowTimer = setInterval(nextCert, 4000);
-}
-
-function stopSlideshow() {
-  clearInterval(slideshowTimer);
-}
-
-/* Touch swipe */
-let startX = 0;
-viewer?.addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-});
-
-viewer?.addEventListener("touchend", e => {
-  const diff = e.changedTouches[0].clientX - startX;
-  if (Math.abs(diff) > 60) {
+  function startSlideshow() {
     stopSlideshow();
-    diff < 0 ? nextCert() : prevCert();
+    slideshowTimer = setInterval(nextCert, 4000);
   }
+
+  function stopSlideshow() {
+    clearInterval(slideshowTimer);
+  }
+
+  /* Swipe support */
+  let startX = 0;
+  viewer?.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  viewer?.addEventListener("touchend", e => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if (Math.abs(diff) > 60) {
+      stopSlideshow();
+      diff < 0 ? nextCert() : prevCert();
+    }
+  });
+
+  viewer?.addEventListener("click", e => {
+    if (e.target === viewer) closeCert();
+  });
+
 });
-
-/* Close on background click */
-viewer?.addEventListener("click", e => {
-  if (e.target === viewer) closeCert();
-});
-
-
-
 </script>
 
 
 </body>
 
 </html>
+
 
 
 
