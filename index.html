@@ -1676,34 +1676,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = certSection.querySelectorAll(".cert-card");
   const titles = certSection.querySelectorAll("h3");
 
-  /* ---------- Section Reveal + Stagger ---------- */
-  const certObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+<script>
+/* =====================================
+   CERTIFICATES – VISIBILITY FIX
+===================================== */
 
-        // Headings
-        titles.forEach((el, i) => {
-          setTimeout(() => el.classList.add("show"), i * 150);
-        });
+document.addEventListener("DOMContentLoaded", () => {
+  const certSection = document.getElementById("certificates");
+  if (!certSection) return;
 
-        // Badge certificates
-        badges.forEach((badge, i) => {
-          setTimeout(() => badge.classList.add("show"), i * 120);
-        });
+  const badges = certSection.querySelectorAll(".cert-badge");
+  const cards = certSection.querySelectorAll(".cert-card");
+  const titles = certSection.querySelectorAll("h3");
 
-        // LeetCode cards
-        cards.forEach((card, i) => {
-          setTimeout(() => card.classList.add("show"), i * 140);
-        });
+  const revealObserver = new MutationObserver(() => {
+    if (!certSection.classList.contains("visible")) return;
 
-        certObserver.unobserve(certSection);
-      });
-    },
-    { threshold: 0.25 }
-  );
+    titles.forEach((el, i) => {
+      setTimeout(() => el.classList.add("show"), i * 120);
+    });
 
-  certObserver.observe(certSection);
+    badges.forEach((badge, i) => {
+      setTimeout(() => badge.classList.add("show"), i * 100);
+    });
+
+    cards.forEach((card, i) => {
+      setTimeout(() => card.classList.add("show"), i * 120);
+    });
+
+    revealObserver.disconnect();
+  });
+
+  revealObserver.observe(certSection, { attributes: true });
+});
+</script>
+
 
   /* ---------- Hover Glow (Mouse Tracking) ---------- */
   cards.forEach(card => {
@@ -1806,6 +1813,7 @@ viewer?.addEventListener("click", e => {
 </body>
 
 </html>
+
 
 
 
