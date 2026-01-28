@@ -745,107 +745,109 @@
     text-align: center;
 }
 
-/* Certificate badge */
-.cert-badge {
-    cursor: pointer;
-    /* opacity: 0; */
-    transform: translateY(30px);
-    transition: all 0.6s ease-out;
+/* ===============================
+   CERTIFICATE GRID LAYOUT
+================================ */
+
+.cert-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
 }
 
-.cert-badge.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* ===============================
+   CERTIFICATE CARD BASE
+================================ */
 
-.cert-badge img {
-    width: 100%;
-    height: auto;
-    max-width: 160px;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    background: white;
-}
-
-.cert-badge:hover {
-    transform: scale(1.05);
-}
-
-/* Full screen viewer */
-#cert-viewer {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-}
-
-/* Full size image */
-#cert-full {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
-    opacity: 1;
-    transition: opacity 0.4s ease;
-}
-        .cert-badge:hover {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.7));
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-        .cert-card {
-  width: 300px;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(9px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+.cert-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  padding: 22px;
   text-align: center;
-  transition: transform .3s ease, box-shadow .3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
+
+/* ===============================
+   CERTIFICATE IMAGE
+================================ */
 
 .cert-card img {
-  width: 95px;
-  margin-bottom: 15px;
+  width: 110px;
+  height: auto;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
 }
 
+/* ===============================
+   TEXT STYLING
+================================ */
+
 .cert-card h3 {
-  margin: 6px 0;
-  font-size: 20px;
-  color: #fff;
+  margin: 10px 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .cert-card p {
-  font-size: 14px;
-  color: #ddd;
-  margin: 6px 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  line-height: 1.5;
+  margin-bottom: 6px;
 }
 
-.cert-card .cert-link {
+/* ===============================
+   LINK BUTTON
+================================ */
+
+.cert-link {
   display: inline-block;
-  margin-top: 10px;
-  padding: 8px 14px;
-  background: #ffa116;
-  color: #121212;
+  margin-top: 14px;
+  color: #f6c177;
   text-decoration: none;
-  border-radius: 6px;
-  transition: background .25s ease;
+  font-weight: 500;
 }
 
-.cert-card .cert-link:hover {
-  background: #ff9c00;
-  color: #000;
+.cert-link:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   HOVER GLOW EFFECT
+================================ */
+
+.cert-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(
+    600px circle at var(--x) var(--y),
+    rgba(255, 200, 100, 0.18),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.cert-card:hover::before {
+  opacity: 1;
 }
 
 .cert-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(255, 190, 90, 0.25);
 }
+
 
 
 </style>
@@ -1618,11 +1620,29 @@ viewer.addEventListener('click', (e) => {
 // }, { threshold: 0.2 });
 
 // document.querySelectorAll('.cert-badge').forEach(el => observer.observe(el));
+        
+  document.querySelectorAll(".cert-card").forEach(card => {
+    card.addEventListener("mousemove", e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty("--x", `${x}px`);
+      card.style.setProperty("--y", `${y}px`);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.setProperty("--x", `50%`);
+      card.style.setProperty("--y", `50%`);
+    });
+  });
 </script>
+
 
 </body>
 
 </html>
+
 
 
 
