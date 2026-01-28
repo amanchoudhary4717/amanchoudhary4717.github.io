@@ -730,106 +730,132 @@
                 width: 230px;
             }
         }
-    </style>
-    
-    <style>
-/* Layout */
+
+        /* ======================================
+   CERTIFICATES – FINAL REPLACEMENT
+====================================== */
+
 #certificates {
-    padding: 40px 0;
+  padding: 60px 0;
+  position: relative;
 }
+
+/* ---------- Badge Certificates ---------- */
 
 .cert-badge-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 20px;
-    text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 22px;
+  margin-top: 30px;
+  text-align: center;
 }
 
-/* ===============================
-   CERTIFICATE GRID LAYOUT
-================================ */
+.cert-badge {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 14px 10px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.88) translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    box-shadow 0.3s ease;
+}
+
+.cert-badge.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.cert-badge img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.cert-badge p {
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.cert-badge:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(255, 152, 0, 0.45);
+}
+
+/* ---------- LeetCode Certificate Cards ---------- */
 
 .cert-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
+  gap: 26px;
+  margin-top: 45px;
 }
-
-/* ===============================
-   CERTIFICATE CARD BASE
-================================ */
 
 .cert-card {
   position: relative;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 18px;
-  padding: 22px;
+  border-radius: 20px;
+  padding: 24px 22px;
   text-align: center;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
   transition:
-    transform 0.35s ease,
+    opacity 0.7s ease,
+    transform 0.7s ease,
     box-shadow 0.35s ease;
 }
 
-/* ===============================
-   CERTIFICATE IMAGE
-================================ */
+.cert-card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
 .cert-card img {
   width: 110px;
-  height: auto;
-  margin-bottom: 16px;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+  margin-bottom: 14px;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
 }
 
-/* ===============================
-   TEXT STYLING
-================================ */
-
 .cert-card h3 {
-  margin: 10px 0 4px;
   font-size: 1.1rem;
-  font-weight: 600;
+  margin: 10px 0 4px;
 }
 
 .cert-card p {
   font-size: 0.9rem;
   opacity: 0.85;
   line-height: 1.5;
-  margin-bottom: 6px;
 }
-
-/* ===============================
-   LINK BUTTON
-================================ */
 
 .cert-link {
   display: inline-block;
   margin-top: 14px;
-  color: #f6c177;
-  text-decoration: none;
   font-weight: 500;
+  color: var(--accent);
 }
 
 .cert-link:hover {
   text-decoration: underline;
 }
 
-/* ===============================
-   HOVER GLOW EFFECT
-================================ */
+/* ---------- Hover Glow ---------- */
 
 .cert-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 18px;
+  border-radius: 20px;
   background: radial-gradient(
     600px circle at var(--x) var(--y),
-    rgba(255, 200, 100, 0.18),
+    rgba(255, 190, 90, 0.18),
     transparent 40%
   );
   opacity: 0;
@@ -842,15 +868,27 @@
 }
 
 .cert-card:hover {
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-8px) scale(1.03);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.35),
-    0 0 24px rgba(255, 190, 90, 0.25);
+    0 22px 45px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(255, 190, 90, 0.25);
 }
 
+/* ---------- Headings animation ---------- */
 
+#certificates h3 {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: 0.6s ease;
+}
 
-</style>
+#certificates h3.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+    </style>
+    
 </head>
 
 <body>
@@ -1625,23 +1663,54 @@ viewer.addEventListener('click', (e) => {
     if (e.target === viewer) closeCert();
 });
 
-/* Scroll reveal animation */
-// const observer = new IntersectionObserver((entries) => {
-//     entries.forEach(entry => {
-//         if (entry.isIntersecting) entry.target.classList.add('visible');
-//     });
-// }, { threshold: 0.2 });
 
-// document.querySelectorAll('.cert-badge').forEach(el => observer.observe(el));
-        
-  document.querySelectorAll(".cert-card").forEach(card => {
+/* =====================================
+   CERTIFICATES – FINAL SCRIPT
+===================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const certSection = document.querySelector("#certificates");
+  if (!certSection) return;
+
+  const badges = certSection.querySelectorAll(".cert-badge");
+  const cards = certSection.querySelectorAll(".cert-card");
+  const titles = certSection.querySelectorAll("h3");
+
+  /* ---------- Section Reveal + Stagger ---------- */
+  const certObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        // Headings
+        titles.forEach((el, i) => {
+          setTimeout(() => el.classList.add("show"), i * 150);
+        });
+
+        // Badge certificates
+        badges.forEach((badge, i) => {
+          setTimeout(() => badge.classList.add("show"), i * 120);
+        });
+
+        // LeetCode cards
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add("show"), i * 140);
+        });
+
+        certObserver.unobserve(certSection);
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  certObserver.observe(certSection);
+
+  /* ---------- Hover Glow (Mouse Tracking) ---------- */
+  cards.forEach(card => {
     card.addEventListener("mousemove", e => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      card.style.setProperty("--x", `${x}px`);
-      card.style.setProperty("--y", `${y}px`);
+      card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+      card.style.setProperty("--y", `${e.clientY - rect.top}px`);
     });
 
     card.addEventListener("mouseleave", () => {
@@ -1649,12 +1718,95 @@ viewer.addEventListener('click', (e) => {
       card.style.setProperty("--y", `50%`);
     });
   });
+});
+
+/* =====================================
+   CERTIFICATE FULLSCREEN VIEWER
+===================================== */
+
+const certImages = [
+  "python_basic_page1.png",
+  "sql_basic_page1.png",
+  "sql_intermediate_page1.png",
+  "sql_advanced_page1.png",
+  "Deloite_certificate_page_1.png"
+];
+
+let currentIndex = 0;
+let slideshowTimer = null;
+
+const viewer = document.getElementById("cert-viewer");
+const fullImg = document.getElementById("cert-full");
+
+function openCert(path) {
+  currentIndex = certImages.indexOf(path);
+  if (currentIndex < 0) currentIndex = 0;
+
+  viewer.style.display = "flex";
+  updateCertImage();
+  startSlideshow();
+}
+
+function closeCert() {
+  viewer.style.display = "none";
+  stopSlideshow();
+}
+
+function updateCertImage() {
+  fullImg.style.opacity = 0;
+  setTimeout(() => {
+    fullImg.src = certImages[currentIndex];
+    fullImg.style.opacity = 1;
+  }, 180);
+}
+
+function nextCert() {
+  currentIndex = (currentIndex + 1) % certImages.length;
+  updateCertImage();
+}
+
+function prevCert() {
+  currentIndex = (currentIndex - 1 + certImages.length) % certImages.length;
+  updateCertImage();
+}
+
+function startSlideshow() {
+  stopSlideshow();
+  slideshowTimer = setInterval(nextCert, 4000);
+}
+
+function stopSlideshow() {
+  clearInterval(slideshowTimer);
+}
+
+/* Touch swipe */
+let startX = 0;
+viewer?.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+viewer?.addEventListener("touchend", e => {
+  const diff = e.changedTouches[0].clientX - startX;
+  if (Math.abs(diff) > 60) {
+    stopSlideshow();
+    diff < 0 ? nextCert() : prevCert();
+  }
+});
+
+/* Close on background click */
+viewer?.addEventListener("click", e => {
+  if (e.target === viewer) closeCert();
+});
+
+
+
 </script>
 
 
 </body>
 
 </html>
+
 
 
 
