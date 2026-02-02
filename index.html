@@ -735,160 +735,180 @@
    CERTIFICATES – FINAL REPLACEMENT
 ====================================== */
 
-#certificates {
-  padding: 60px 0;
-  position: relative;
-}
+        #certificates {
+            padding: 60px 0;
+            position: relative;
+        }
 
-/* ---------- Badge Certificates ---------- */
+        /* ---------- Badge Certificates ---------- */
 
-.cert-badge-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 22px;
-  margin-top: 30px;
-  text-align: center;
-}
+        .cert-badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+            text-align: center;
+        }
 
-.cert-badge {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 14px 10px;
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0.88) translateY(20px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease,
-    box-shadow 0.3s ease;
-}
+        .cert-badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 14px 10px;
+            cursor: pointer;
+            /* opacity: 0; */
+            transform: scale(0.88) translateY(20px);
+            transition:
+                opacity 0.6s ease,
+                transform 0.6s ease,
+                box-shadow 0.3s ease;
+        }
 
-.cert-badge.show {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
+        .cert-badge.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
 
-.cert-badge img {
-  width: 100%;
-  max-height: 120px;
-  object-fit: contain;
-  border-radius: 10px;
-}
+        .cert-badge img {
+            width: 100%;
+            max-height: 120px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
 
-.cert-badge p {
-  margin-top: 8px;
-  font-size: 13px;
-  opacity: 0.85;
-}
+        .cert-badge p {
+            margin-top: 8px;
+            font-size: 13px;
+            opacity: 0.85;
+        }
 
-.cert-badge:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 18px rgba(255, 152, 0, 0.45);
-}
+        .cert-badge:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 18px rgba(255, 152, 0, 0.45);
+        }
 
-/* ---------- LeetCode Certificate Cards ---------- */
+        /* ---------- LeetCode Certificate Cards ---------- */
 
-.cert-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 26px;
-  margin-top: 45px;
-}
+        .cert-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 26px;
+            margin-top: 45px;
+        }
 
-.cert-card {
-  position: relative;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 20px;
-  padding: 24px 22px;
-  text-align: center;
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  transform: translateY(40px) scale(0.96);
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease,
-    box-shadow 0.35s ease;
-}
+        .cert-card {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 24px 22px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            /* opacity: 0; */
+            transform: translateY(40px) scale(0.96);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease,
+                box-shadow 0.35s ease;
+        }
 
-.cert-card.show {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+        .cert-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
 
-.cert-card img {
-  width: 110px;
-  margin-bottom: 14px;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-}
+        .cert-card img {
+            width: 110px;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+        }
 
-.cert-card h3 {
-  font-size: 1.1rem;
-  margin: 10px 0 4px;
-}
+        .cert-card h3 {
+            font-size: 1.1rem;
+            margin: 10px 0 4px;
+        }
 
-.cert-card p {
-  font-size: 0.9rem;
-  opacity: 0.85;
-  line-height: 1.5;
-}
+        .cert-card p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
 
-.cert-link {
-  display: inline-block;
-  margin-top: 14px;
-  font-weight: 500;
-  color: var(--accent);
-}
+        .cert-link {
+            display: inline-block;
+            margin-top: 14px;
+            font-weight: 500;
+            color: var(--accent);
+        }
 
-.cert-link:hover {
-  text-decoration: underline;
-}
+        .cert-link:hover {
+            text-decoration: underline;
+        }
 
-/* ---------- Hover Glow ---------- */
+        /* ---------- Hover Glow ---------- */
 
-.cert-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: radial-gradient(
-    600px circle at var(--x) var(--y),
-    rgba(255, 190, 90, 0.18),
-    transparent 40%
-  );
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
+        .cert-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(600px circle at var(--x) var(--y),
+                    rgba(255, 190, 90, 0.18),
+                    transparent 40%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
 
-.cert-card:hover::before {
-  opacity: 1;
-}
+        .cert-card:hover::before {
+            opacity: 1;
+        }
 
-.cert-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow:
-    0 22px 45px rgba(0, 0, 0, 0.35),
-    0 0 28px rgba(255, 190, 90, 0.25);
-}
+        .cert-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow:
+                0 22px 45px rgba(0, 0, 0, 0.35),
+                0 0 28px rgba(255, 190, 90, 0.25);
+        }
 
-/* ---------- Headings animation ---------- */
+        /* ---------- Headings animation ---------- */
 
-#certificates h3 {
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: 0.6s ease;
-}
+        #certificates h3 {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: 0.6s ease;
+        }
 
-#certificates h3.show {
-  opacity: 1;
-  transform: translateX(0);
-}
+        #certificates h3.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
+        #cert-viewer {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #cert-full,
+        #cert-pdf {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+        }
+
+        #cert-pdf {
+            width: 80%;
+            height: 80%;
+            background: #000;
+        }
     </style>
-    
+
 </head>
 
 <body>
@@ -968,25 +988,25 @@
                             and Power BI, I aim to solve real-world problems through
                             data-driven decision making.
                         </p>
-                       <div class="hero-buttons">
-    <button class="btn-primary"
-        onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
-        <i class="fa-solid fa-diagram-project"></i>
-        View Projects
-    </button>
+                        <div class="hero-buttons">
+                            <button class="btn-primary"
+                                onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+                                <i class="fa-solid fa-diagram-project"></i>
+                                View Projects
+                            </button>
 
-    <!-- View Resume -->
-    <a href="Aman_Choudhary.pdf" target="_blank" class="btn-ghost">
-        <i class="fa-regular fa-eye"></i>
-        View Resume
-    </a>
+                            <!-- View Resume -->
+                            <a href="Aman_Choudhary.pdf" target="_blank" class="btn-ghost">
+                                <i class="fa-regular fa-eye"></i>
+                                View Resume
+                            </a>
 
-    <!-- Download Resume -->
-    <a href="Aman_Choudhary.pdf" download class="btn-ghost">
-        <i class="fa-regular fa-file-lines"></i>
-        Download Resume
-    </a>
-</div>
+                            <!-- Download Resume -->
+                            <a href="Aman_Choudhary.pdf" download class="btn-ghost">
+                                <i class="fa-regular fa-file-lines"></i>
+                                Download Resume
+                            </a>
+                        </div>
 
                     </div>
                 </div>
@@ -1093,120 +1113,122 @@
 
             </div>
         </section>
-        
-<section id="certificates" class="reveal">
-  <div class="section-subtitle">CERTIFICATES</div>
-  <div class="section-title">Achievements & Learning</div>
 
-  <!-- BASIC / IMAGE CERTIFICATES -->
-  <h3 style="margin-top:30px;">Professional Certificates</h3>
+        <section id="certificates" class="reveal">
+            <div class="section-subtitle">CERTIFICATES</div>
+            <div class="section-title">Achievements & Learning</div>
 
-  <div class="cert-badge-grid">
-    <div class="cert-badge" onclick="openCert('python_basic_page1.png')">
-      <img src="python_basic_page1.png" alt="Python Basic">
-      <p>Python (Basic)</p>
-    </div>
+            <!-- BASIC / IMAGE CERTIFICATES -->
+            <h3 style="margin-top:30px;">Professional Certificates</h3>
 
-    <div class="cert-badge" onclick="openCert('sql_basic_page1.png')">
-      <img src="sql_basic_page1.png" alt="SQL Basic">
-      <p>SQL (Basic)</p>
-    </div>
+            <div class="cert-badge-grid">
+                <div class="cert-badge" onclick="openCert('python_basic_page1.png')">
+                    <img src="python_basic_page1.png" alt="Python Basic">
+                    <p>Python (Basic)</p>
+                </div>
 
-    <div class="cert-badge" onclick="openCert('sql_intermediate_page1.png')">
-      <img src="sql_intermediate_page1.png" alt="SQL Intermediate">
-      <p>SQL (Intermediate)</p>
-    </div>
+                <div class="cert-badge" onclick="openCert('sql_basic_page1.png')">
+                    <img src="sql_basic_page1.png" alt="SQL Basic">
+                    <p>SQL (Basic)</p>
+                </div>
 
-    <div class="cert-badge" onclick="openCert('sql_advanced_page1.png')">
-      <img src="sql_advanced_page1.png" alt="SQL Advanced">
-      <p>SQL (Advanced)</p>
-    </div>
+                <div class="cert-badge" onclick="openCert('sql_intermediate_page1.png')">
+                    <img src="sql_intermediate_page1.png" alt="SQL Intermediate">
+                    <p>SQL (Intermediate)</p>
+                </div>
 
-    <div class="cert-badge" onclick="openCert('Deloite_certificate_page_1.png')">
-      <img src="Deloite_certificate_page_1.png" alt="Data Analytics">
-      <p>Deloitte – Data Analytics</p>
-    </div>
-      <div class="cert-badge" onclick="openCert('problem_solving_intermediate certificate.pdf')">
-      <img src="problem_solving_intermediate certificate.pdf" alt="Problem Solving">
-      <p>Problem Solving</p>
-    </div>
-  </div>
+                <div class="cert-badge" onclick="openCert('sql_advanced_page1.png')">
+                    <img src="sql_advanced_page1.png" alt="SQL Advanced">
+                    <p>SQL (Advanced)</p>
+                </div>
+                <div class="cert-badge" onclick="openCert('problem_solving_intermediate_certificate_page_1.png')">
+                    <img src="problem_solving_intermediate_certificate_page_1.png" alt="Problem Solving Certificate">
+                    <p>Problem Solving</p>
+                </div>
+                <div class="cert-badge" onclick="openCert('Deloite_certificate_page_1.png')">
+                    <img src="Deloite_certificate_page_1.png" alt="Data Analytics">
+                    <p>Deloitte – Data Analytics</p>
+                </div>
 
-  <!-- LEETCODE CERTIFICATES -->
-  <h3 style="margin-top:50px;">LeetCode Certifications</h3>
+            </div>
 
-  <div class="cert-container">
-    <div class="cert-card">
-      <img src="leet150.png" alt="Top Interview 150">
-      <h3>Top Interview 150</h3>
-      <p>LeetCode</p>
-      <p>
-        Completed 150 curated interview problems focused on
-        data structures and algorithms.
-      </p>
-      <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
-        View Profile
-      </a>
-    </div>
+            <!-- LEETCODE CERTIFICATES -->
+            <h3 style="margin-top:50px;">LeetCode Certifications</h3>
 
-    <div class="cert-card">
-      <img src="top100.png" alt="Top 100 Liked">
-      <h3>Top 100 Liked</h3>
-      <p>LeetCode</p>
-      <p>
-        Solved the most liked LeetCode problems to master
-        core problem-solving patterns.
-      </p>
-      <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
-        View Profile
-      </a>
-    </div>
+            <div class="cert-container">
+                <div class="cert-card">
+                    <img src="top150.png" alt="Top Interview 150">
+                    <h3>Top Interview 150</h3>
+                    <p>LeetCode</p>
+                    <p>
+                        Completed 150 curated interview problems focused on
+                        data structures and algorithms.
+                    </p>
+                    <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
+                        View Profile
+                    </a>
+                </div>
 
-    <div class="cert-card">
-      <img src="leetcode75.png" alt="LeetCode 75">
-      <h3>LeetCode 75</h3>
-      <p>LeetCode</p>
-      <p>
-        Completed LeetCode 75 roadmap covering arrays,
-        hashing, recursion, trees, and graphs.
-      </p>
-      <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
-        View Profile
-      </a>
-    </div>
+                <div class="cert-card">
+                    <img src="top100.png" alt="Top 100 Liked">
+                    <h3>Top 100 Liked</h3>
+                    <p>LeetCode</p>
+                    <p>
+                        Solved the most liked LeetCode problems to master
+                        core problem-solving patterns.
+                    </p>
+                    <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
+                        View Profile
+                    </a>
+                </div>
 
-    <div class="cert-card">
-      <img src="sql50.png" alt="SQL 50">
-      <h3>SQL 50</h3>
-      <p>LeetCode</p>
-      <p>
-        Solved 50 SQL problems involving joins,
-        subqueries, aggregation, and window functions.
-      </p>
-      <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
-        View Profile
-      </a>
-    </div>
+                <div class="cert-card">
+                    <img src="leetcode75.png" alt="LeetCode 75">
+                    <h3>LeetCode 75</h3>
+                    <p>LeetCode</p>
+                    <p>
+                        Completed LeetCode 75 roadmap covering arrays,
+                        hashing, recursion, trees, and graphs.
+                    </p>
+                    <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
+                        View Profile
+                    </a>
+                </div>
 
-    <div class="cert-card">
-      <img src="intropandas.png" alt="Intro to Pandas">
-      <h3>Introduction to Pandas</h3>
-      <p>LeetCode</p>
-      <p>
-        Learned Pandas for data manipulation, filtering,
-        indexing, and aggregation.
-      </p>
-      <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
-        View Profile
-      </a>
-    </div>
-  </div>
+                <div class="cert-card">
+                    <img src="sql50.png" alt="SQL 50">
+                    <h3>SQL 50</h3>
+                    <p>LeetCode</p>
+                    <p>
+                        Solved 50 SQL problems involving joins,
+                        subqueries, aggregation, and window functions.
+                    </p>
+                    <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
+                        View Profile
+                    </a>
+                </div>
 
-  <!-- Fullscreen viewer -->
-  <div id="cert-viewer" onclick="closeCert()">
-    <img id="cert-full" src="" alt="Certificate">
-  </div>
-</section>
+                <div class="cert-card">
+                    <img src="intropandas.png" alt="Intro to Pandas">
+                    <h3>Introduction to Pandas</h3>
+                    <p>LeetCode</p>
+                    <p>
+                        Learned Pandas for data manipulation, filtering,
+                        indexing, and aggregation.
+                    </p>
+                    <a href="https://leetcode.com/Aman4717/" target="_blank" class="cert-link">
+                        View Profile
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fullscreen viewer -->
+            <div id="cert-viewer" onclick="closeCert()">
+                <img id="cert-full" style="display:none;">
+                <iframe id="cert-pdf" style="display:none;"></iframe>
+            </div>
+
+        </section>
 
 
 
@@ -1218,64 +1240,63 @@
             <div class="projects-grid">
 
                 <!-- PROJECT CARD -->
-              <div class="project-card" data-tilt>
-    <div class="project-header">
-        <i class="fa-solid fa-car-side project-icon"></i>
-    </div>
+                <div class="project-card" data-tilt>
+                    <div class="project-header">
+                        <i class="fa-solid fa-car-side project-icon"></i>
+                    </div>
 
-    <h3>Car Price Prediction</h3>
+                    <h3>Car Price Prediction</h3>
 
-    <p>
-        Machine learning application that predicts used car prices based on
-        model year, kilometers driven, fuel type and more. Includes data
-        preprocessing, feature engineering and performance optimization.
-    </p>
+                    <p>
+                        Machine learning application that predicts used car prices based on
+                        model year, kilometers driven, fuel type and more. Includes data
+                        preprocessing, feature engineering and performance optimization.
+                    </p>
 
-    <div class="project-tags">
-        <span>Python</span>
-        <span>Machine Learning</span>
-        <span>Streamlit</span>
-    </div>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Machine Learning</span>
+                        <span>Streamlit</span>
+                    </div>
 
-    <a href="https://car-price-prediction-app-by-aman.streamlit.app/#car-price-prediction-app"
-       target="_blank"
-       class="project-btn">
-       <i class="fa-solid fa-up-right-from-square"></i> Live Demo
-    </a>
+                    <a href="https://car-price-prediction-app-by-aman.streamlit.app/#car-price-prediction-app"
+                        target="_blank" class="project-btn">
+                        <i class="fa-solid fa-up-right-from-square"></i> Live Demo
+                    </a>
 
-    <a href="https://github.com/amanchoudhary4717/car-price-prediction"
-       target="_blank"
-       class="project-btn">
-       <i class="fa-brands fa-github"></i> GitHub
-    </a>
-</div>
+                    <a href="https://github.com/amanchoudhary4717/car-price-prediction" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                </div>
 
 
                 <div class="project-card" data-tilt>
-    <div class="project-header">
-        <i class="fa-solid fa-building-columns project-icon"></i>
-    </div>
+                    <div class="project-header">
+                        <i class="fa-solid fa-building-columns project-icon"></i>
+                    </div>
 
-    <h3>Loan Approval Prediction System</h3>
-    <p>
-        A machine-learning app that predicts loan approval based on income,
-        CIBIL score, loan amount and assets. Built with Python & Streamlit;
-        deployed live.
-    </p>
+                    <h3>Loan Approval Prediction System</h3>
+                    <p>
+                        A machine-learning app that predicts loan approval based on income,
+                        CIBIL score, loan amount and assets. Built with Python & Streamlit;
+                        deployed live.
+                    </p>
 
-    <div class="project-tags">
-        <span>Python</span>
-        <span>Scikit-Learn</span>
-        <span>Streamlit</span>
-    </div>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Scikit-Learn</span>
+                        <span>Streamlit</span>
+                    </div>
 
-    <a href="https://loan-approval-app-by-aman.streamlit.app/" target="_blank" class="project-btn">
-        <i class="fa-solid fa-up-right-from-square"></i> Live Demo
-    </a>
-    <a href="https://github.com/amanchoudhary4717/loan-approval-app" target="_blank" class="project-btn">
-        <i class="fa-brands fa-github"></i> GitHub
-    </a>
-</div>
+                    <a href="https://loan-approval-app-by-aman.streamlit.app/" target="_blank" class="project-btn">
+                        <i class="fa-solid fa-up-right-from-square"></i> Live Demo
+                    </a>
+                    <a href="https://github.com/amanchoudhary4717/loan-approval-app" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                </div>
 
 
 
@@ -1345,39 +1366,36 @@
                     </a>
                 </div>
                 <div class="project-card" data-tilt>
-    <div class="project-header">
-        <i class="fa-solid fa-school project-icon"></i>
-    </div>
+                    <div class="project-header">
+                        <i class="fa-solid fa-school project-icon"></i>
+                    </div>
 
-    <h3>A School Website</h3>
+                    <h3>A School Website</h3>
 
-    <p>
-        A modern responsive school website built using HTML, CSS, and JavaScript.
-        Includes student fee prediction feature, clean UI design and dynamic
-        interactive components.
-    </p>
+                    <p>
+                        A modern responsive school website built using HTML, CSS, and JavaScript.
+                        Includes student fee prediction feature, clean UI design and dynamic
+                        interactive components.
+                    </p>
 
-    <div class="project-tags">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
-        <span>Web Development</span>
-    </div>
+                    <div class="project-tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Web Development</span>
+                    </div>
 
-    <!-- Live Demo button (replace with your Vercel / GitHub Pages link) -->
-    <a href="https://bal-sanskar-school.vercel.app/" 
-       target="_blank" 
-       class="project-btn">
-       <i class="fa-solid fa-up-right-from-square"></i> Live Demo
-    </a>
+                    <!-- Live Demo button (replace with your Vercel / GitHub Pages link) -->
+                    <a href="https://bal-sanskar-school.vercel.app/" target="_blank" class="project-btn">
+                        <i class="fa-solid fa-up-right-from-square"></i> Live Demo
+                    </a>
 
-    <!-- GitHub Repo -->
-    <a href="https://github.com/amanchoudhary4717/Bal_Sanskar_School"
-       target="_blank"
-       class="project-btn">
-       <i class="fa-brands fa-github"></i> GitHub
-    </a>
-</div>
+                    <!-- GitHub Repo -->
+                    <a href="https://github.com/amanchoudhary4717/Bal_Sanskar_School" target="_blank"
+                        class="project-btn">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                </div>
 
 
             </div>
@@ -1434,274 +1452,255 @@
     </footer>
 
     <script>
-/* =====================================
-   GLOBAL DOM READY
-===================================== */
-document.addEventListener("DOMContentLoaded", () => {
+        /* =====================================
+           GLOBAL DOM READY
+        ===================================== */
+        document.addEventListener("DOMContentLoaded", () => {
 
-  /* =====================================
-     LOADER
-  ===================================== */
-  const loader = document.getElementById("loader");
-  if (loader) {
-    window.addEventListener("load", () => {
-      loader.style.opacity = "0";
-      setTimeout(() => (loader.style.display = "none"), 600);
-    });
-  }
+            /* =====================================
+               LOADER
+            ===================================== */
+            const loader = document.getElementById("loader");
+            if (loader) {
+                window.addEventListener("load", () => {
+                    loader.style.opacity = "0";
+                    setTimeout(() => (loader.style.display = "none"), 600);
+                });
+            }
 
-  /* =====================================
-     TYPING ANIMATION
-  ===================================== */
-  const typingEl = document.getElementById("typingText");
-  const titles = [
-    "Data Science Enthusiast",
-    "Machine Learning Specialist",
-    "SQL Developer",
-    "Data Analyst",
-    "Deep Learning Engineer"
-  ];
+            /* =====================================
+               TYPING ANIMATION
+            ===================================== */
+            const typingEl = document.getElementById("typingText");
+            const titles = [
+                "Data Science Enthusiast",
+                "Machine Learning Specialist",
+                "SQL Developer",
+                "Data Analyst",
+                "Deep Learning Engineer"
+            ];
 
-  let titleIndex = 0;
-  let charIndex = 0;
+            let titleIndex = 0;
+            let charIndex = 0;
 
-  function typeTitle() {
-    if (!typingEl) return;
+            function typeTitle() {
+                if (!typingEl) return;
 
-    if (charIndex < titles[titleIndex].length) {
-      typingEl.textContent += titles[titleIndex][charIndex++];
-      setTimeout(typeTitle, 90);
-    } else {
-      setTimeout(eraseTitle, 1200);
-    }
-  }
+                if (charIndex < titles[titleIndex].length) {
+                    typingEl.textContent += titles[titleIndex][charIndex++];
+                    setTimeout(typeTitle, 90);
+                } else {
+                    setTimeout(eraseTitle, 1200);
+                }
+            }
 
-  function eraseTitle() {
-    if (charIndex > 0) {
-      typingEl.textContent = titles[titleIndex].slice(0, --charIndex);
-      setTimeout(eraseTitle, 50);
-    } else {
-      titleIndex = (titleIndex + 1) % titles.length;
-      setTimeout(typeTitle, 300);
-    }
-  }
+            function eraseTitle() {
+                if (charIndex > 0) {
+                    typingEl.textContent = titles[titleIndex].slice(0, --charIndex);
+                    setTimeout(eraseTitle, 50);
+                } else {
+                    titleIndex = (titleIndex + 1) % titles.length;
+                    setTimeout(typeTitle, 300);
+                }
+            }
 
-  typeTitle();
+            typeTitle();
 
-  /* =====================================
-     THEME TOGGLE (CLEAN + PERSISTENT)
-  ===================================== */
-  const themeToggle = document.getElementById("themeToggle");
-  const body = document.body;
+            /* =====================================
+               THEME TOGGLE (CLEAN + PERSISTENT)
+            ===================================== */
+            const themeToggle = document.getElementById("themeToggle");
+            const body = document.body;
 
-  function setTheme(mode) {
-    body.classList.toggle("light", mode === "light");
-    localStorage.setItem("theme", mode);
+            function setTheme(mode) {
+                body.classList.toggle("light", mode === "light");
+                localStorage.setItem("theme", mode);
 
-    const icon = themeToggle?.querySelector("i");
-    const text = themeToggle?.querySelector("span");
+                const icon = themeToggle?.querySelector("i");
+                const text = themeToggle?.querySelector("span");
 
-    if (icon && text) {
-      icon.className = mode === "light"
-        ? "fa-regular fa-sun"
-        : "fa-regular fa-moon";
-      text.textContent = mode === "light" ? "Light" : "Dark";
-    }
-  }
+                if (icon && text) {
+                    icon.className = mode === "light"
+                        ? "fa-regular fa-sun"
+                        : "fa-regular fa-moon";
+                    text.textContent = mode === "light" ? "Light" : "Dark";
+                }
+            }
 
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  setTheme(savedTheme);
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            setTheme(savedTheme);
 
-  themeToggle?.addEventListener("click", () => {
-    setTheme(body.classList.contains("light") ? "dark" : "light");
-  });
+            themeToggle?.addEventListener("click", () => {
+                setTheme(body.classList.contains("light") ? "dark" : "light");
+            });
 
-  /* =====================================
-     SCROLL REVEAL
-  ===================================== */
-  const reveals = document.querySelectorAll(".reveal");
-  const revealObserver = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  reveals.forEach(el => revealObserver.observe(el));
+            /* =====================================
+               SCROLL REVEAL
+            ===================================== */
+            const reveals = document.querySelectorAll(".reveal");
+            const revealObserver = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.15 }
+            );
+            reveals.forEach(el => revealObserver.observe(el));
 
-  /* =====================================
-     HERO CANVAS BUBBLES
-  ===================================== */
-  const canvas = document.getElementById("hero-canvas");
-  if (canvas) {
-    const ctx = canvas.getContext("2d");
-    let bubbles = [];
-    let cw, ch;
+            /* =====================================
+               HERO CANVAS BUBBLES
+            ===================================== */
+            const canvas = document.getElementById("hero-canvas");
+            if (canvas) {
+                const ctx = canvas.getContext("2d");
+                let bubbles = [];
+                let cw, ch;
 
-    function initCanvas() {
-      cw = canvas.width = canvas.offsetWidth;
-      ch = canvas.height = canvas.offsetHeight;
-      bubbles = Array.from({ length: 40 }, () => ({
-        x: Math.random() * cw,
-        y: Math.random() * ch,
-        r: 3 + Math.random() * 6,
-        vy: -0.3 - Math.random() * 0.7,
-        vx: (Math.random() - 0.5) * 0.3,
-        alpha: 0.2 + Math.random() * 0.5
-      }));
-    }
+                function initCanvas() {
+                    cw = canvas.width = canvas.offsetWidth;
+                    ch = canvas.height = canvas.offsetHeight;
+                    bubbles = Array.from({ length: 40 }, () => ({
+                        x: Math.random() * cw,
+                        y: Math.random() * ch,
+                        r: 3 + Math.random() * 6,
+                        vy: -0.3 - Math.random() * 0.7,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        alpha: 0.2 + Math.random() * 0.5
+                    }));
+                }
 
-    function draw() {
-      ctx.clearRect(0, 0, cw, ch);
-      bubbles.forEach(b => {
-        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        g.addColorStop(0, `rgba(255,255,255,${b.alpha})`);
-        g.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fill();
+                function draw() {
+                    ctx.clearRect(0, 0, cw, ch);
+                    bubbles.forEach(b => {
+                        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+                        g.addColorStop(0, `rgba(255,255,255,${b.alpha})`);
+                        g.addColorStop(1, "rgba(255,255,255,0)");
+                        ctx.fillStyle = g;
+                        ctx.beginPath();
+                        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                        ctx.fill();
 
-        b.x += b.vx;
-        b.y += b.vy;
-        if (b.y + b.r < 0) {
-          b.y = ch + b.r;
-          b.x = Math.random() * cw;
-        }
-      });
-      requestAnimationFrame(draw);
-    }
+                        b.x += b.vx;
+                        b.y += b.vy;
+                        if (b.y + b.r < 0) {
+                            b.y = ch + b.r;
+                            b.x = Math.random() * cw;
+                        }
+                    });
+                    requestAnimationFrame(draw);
+                }
 
-    window.addEventListener("resize", initCanvas);
-    initCanvas();
-    draw();
-  }
+                window.addEventListener("resize", initCanvas);
+                initCanvas();
+                draw();
+            }
 
-  /* =====================================
-     VANILLA TILT
-  ===================================== */
-  if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-      max: 10,
-      speed: 300,
-      glare: true,
-      "max-glare": 0.2
-    });
-  }
+            /* =====================================
+               VANILLA TILT
+            ===================================== */
+            if (window.VanillaTilt) {
+                VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+                    max: 10,
+                    speed: 300,
+                    glare: true,
+                    "max-glare": 0.2
+                });
+            }
 
-  /* =====================================
-     CERTIFICATES VIEWER
-  ===================================== */
-  const certImages = [
-    "python_basic_page1.png",
-    "sql_basic_page1.png",
-    "sql_intermediate_page1.png",
-    "sql_advanced_page1.png",
-    "Deloite_certificate_page_1.png",
-    "problem_solving_intermediate certificate.pdf"
-  ];
+            /* =====================================
+               CERTIFICATES VIEWER
+            ===================================== */
+            const certImages = [
+                "python_basic_page1.png",
+                "sql_basic_page1.png",
+                "sql_intermediate_page1.png",
+                "sql_advanced_page1.png",
+                "Deloite_certificate_page_1.png",
+                "problem_solving_intermediate_certificate_page_1.png"
+            ];
 
-  let currentIndex = 0;
-  let slideshowTimer;
+            let currentIndex = 0;
+            let slideshowTimer;
 
-  const viewer = document.getElementById("cert-viewer");
-  const fullImg = document.getElementById("cert-full");
+            const viewer = document.getElementById("cert-viewer");
+            const fullImg = document.getElementById("cert-full");
+            const pdfViewer = document.getElementById("cert-pdf");
 
-  window.openCert = function (path) {
-    currentIndex = Math.max(certImages.indexOf(path), 0);
-    viewer.style.display = "flex";
-    updateImage();
-    startSlideshow();
-  };
+            window.openCert = function (path) {
+                currentIndex = Math.max(certImages.indexOf(path), 0);
+                viewer.style.display = "flex";
+                updateViewer();
+                startSlideshow();
+            };
 
-  window.closeCert = function () {
-    viewer.style.display = "none";
-    stopSlideshow();
-  };
+            window.closeCert = function () {
+                viewer.style.display = "none";
+                stopSlideshow();
+            };
 
-  function updateImage() {
-    fullImg.style.opacity = 0;
-    setTimeout(() => {
-      fullImg.src = certImages[currentIndex];
-      fullImg.style.opacity = 1;
-    }, 180);
-  }
+            function updateViewer() {
+                const file = certImages[currentIndex];
+                const isPDF = file.toLowerCase().endsWith(".pdf");
 
-  window.nextCert = function () {
-    currentIndex = (currentIndex + 1) % certImages.length;
-    updateImage();
-  };
+                fullImg.style.display = "none";
+                pdfViewer.style.display = "none";
 
-  window.prevCert = function () {
-    currentIndex =
-      (currentIndex - 1 + certImages.length) % certImages.length;
-    updateImage();
-  };
+                if (isPDF) {
+                    pdfViewer.src = file;
+                    pdfViewer.style.display = "block";
+                } else {
+                    fullImg.src = file;
+                    fullImg.style.display = "block";
+                }
+            }
 
-  function startSlideshow() {
-    stopSlideshow();
-    slideshowTimer = setInterval(nextCert, 4000);
-  }
+            window.nextCert = function () {
+                currentIndex = (currentIndex + 1) % certImages.length;
+                updateViewer();
+            };
 
-  function stopSlideshow() {
-    clearInterval(slideshowTimer);
-  }
+            window.prevCert = function () {
+                currentIndex =
+                    (currentIndex - 1 + certImages.length) % certImages.length;
+                updateViewer();
+            };
 
-  /* Swipe support */
-  let startX = 0;
-  viewer?.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
-  });
+            function startSlideshow() {
+                stopSlideshow();
+                slideshowTimer = setInterval(nextCert, 4000);
+            }
 
-  viewer?.addEventListener("touchend", e => {
-    const diff = e.changedTouches[0].clientX - startX;
-    if (Math.abs(diff) > 60) {
-      stopSlideshow();
-      diff < 0 ? nextCert() : prevCert();
-    }
-  });
+            function stopSlideshow() {
+                clearInterval(slideshowTimer);
+            }
 
-  viewer?.addEventListener("click", e => {
-    if (e.target === viewer) closeCert();
-  });
+            /* Swipe support */
+            let startX = 0;
 
-});
-</script>
+            viewer.addEventListener("touchstart", e => {
+                startX = e.touches[0].clientX;
+            });
+
+            viewer.addEventListener("touchend", e => {
+                const diff = e.changedTouches[0].clientX - startX;
+                if (Math.abs(diff) > 60) {
+                    stopSlideshow();
+                    diff < 0 ? nextCert() : prevCert();
+                }
+            });
+
+            viewer.addEventListener("click", e => {
+                if (e.target === viewer) closeCert();
+            });
+        });
+
+    </script>
 
 
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
