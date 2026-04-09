@@ -13,7 +13,7 @@
       <text x='50%' y='58%' font-size='50' text-anchor='middle' fill='black'
        font-family='Arial' font-weight='bold'>AC</text>
     </svg>">
-    
+
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -758,7 +758,9 @@
             padding: 14px 10px;
             cursor: pointer;
             /* opacity: 0; */
-            transform: scale(0.88) translateY(20px);
+            opacity: 1;
+            transform: none;
+
             transition:
                 opacity 0.6s ease,
                 transform 0.6s ease,
@@ -772,9 +774,8 @@
 
         .cert-badge img {
             width: 100%;
-            max-height: 120px;
-            object-fit: contain;
-            border-radius: 10px;
+            height: auto;
+            max-height: 180px;
         }
 
         .cert-badge p {
@@ -908,31 +909,213 @@
             height: 80%;
             background: #000;
         }
+
+        /* ===== PREMIUM LOADER ===== */
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #0a0a14, #000);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #loader-canvas {
+            position: absolute;
+            inset: 0;
+            opacity: 0.5;
+        }
+
+        .loader-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* TEXT */
+        #loader-text {
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 700;
+            color: #ff9800;
+            text-shadow:
+                0 0 20px rgba(255, 152, 0, 0.8),
+                0 0 40px rgba(255, 152, 0, 0.5);
+            border-right: 3px solid #fff;
+            padding-right: 5px;
+            white-space: nowrap;
+        }
+
+        /* SKIP BUTTON */
+        #skipBtn {
+            margin-top: 30px;
+            padding: 10px 18px;
+            border-radius: 30px;
+            border: 1px solid #ff9800;
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        #skipBtn:hover {
+            background: #ff9800;
+            color: #000;
+        }
+
+        @media (max-width: 600px) {
+            .cert-badge-grid {
+                grid-template-columns: 1fr;
+                /* single column */
+            }
+
+            .cert-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cert-badge {
+                padding: 16px;
+            }
+
+            .cert-badge p {
+                font-size: 14px;
+            }
+        }
+
+        /* ===== GLASS NAVBAR ===== */
+        #navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(14px);
+            background: rgba(10, 10, 20, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 30px;
+        }
+
+        /* NAV LINKS */
+        .nav-links {
+            position: relative;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-size: 15px;
+            color: var(--text-color);
+            padding: 5px 0;
+            transition: 0.3s;
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ===== ANIMATED UNDERLINE ===== */
+        .nav-indicator {
+            position: absolute;
+            bottom: -2px;
+            height: 2px;
+            background: var(--accent);
+            width: 0;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== HAMBURGER ===== */
+        .menu-toggle {
+            display: none;
+            font-size: 22px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(10, 10, 20, 0.95);
+                backdrop-filter: blur(16px);
+                display: none;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-indicator {
+                display: none;
+            }
+        }
     </style>
 
 </head>
 
 <body>
-    <!-- Loading Screen -->
     <div id="loader">
-        <div class="spinner"></div>
+        <canvas id="loader-canvas"></canvas>
+
+        <div class="loader-content">
+            <h1 id="loader-text"></h1>
+
+            <button id="skipBtn">
+                <i class="fa-solid fa-forward"></i> Aman Choudhary
+            </button>
+        </div>
+
+        <audio id="introSound" src="intro.mp3"></audio>
     </div>
 
     <!-- Navbar -->
-    <nav>
+    <nav id="navbar">
         <div class="nav-left">
             <div class="logo">
                 <span class="badge">AC</span>
             </div>
         </div>
-        <div class="nav-links">
+
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="nav-links" id="navLinks">
             <a href="#home-wrapper">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#certificates">Certificates</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
+            <span class="nav-indicator" id="navIndicator"></span>
         </div>
+
         <button id="themeToggle" class="theme-toggle">
             <i class="fa-regular fa-moon"></i>
             <span>Dark</span>
@@ -1468,63 +1651,14 @@
     </footer>
 
     <script>
-        /* =====================================
-           GLOBAL DOM READY
-        ===================================== */
+        /* =========================================
+           GLOBAL INITIALIZATION
+        ========================================= */
         document.addEventListener("DOMContentLoaded", () => {
 
-            /* =====================================
-               LOADER
-            ===================================== */
-            const loader = document.getElementById("loader");
-            if (loader) {
-                window.addEventListener("load", () => {
-                    loader.style.opacity = "0";
-                    setTimeout(() => (loader.style.display = "none"), 600);
-                });
-            }
-
-            /* =====================================
-               TYPING ANIMATION
-            ===================================== */
-            const typingEl = document.getElementById("typingText");
-            const titles = [
-                "Data Science Enthusiast",
-                "Machine Learning Specialist",
-                "SQL Developer",
-                "Data Analyst",
-                "Deep Learning Engineer"
-            ];
-
-            let titleIndex = 0;
-            let charIndex = 0;
-
-            function typeTitle() {
-                if (!typingEl) return;
-
-                if (charIndex < titles[titleIndex].length) {
-                    typingEl.textContent += titles[titleIndex][charIndex++];
-                    setTimeout(typeTitle, 90);
-                } else {
-                    setTimeout(eraseTitle, 1200);
-                }
-            }
-
-            function eraseTitle() {
-                if (charIndex > 0) {
-                    typingEl.textContent = titles[titleIndex].slice(0, --charIndex);
-                    setTimeout(eraseTitle, 50);
-                } else {
-                    titleIndex = (titleIndex + 1) % titles.length;
-                    setTimeout(typeTitle, 300);
-                }
-            }
-
-            typeTitle();
-
-            /* =====================================
-               THEME TOGGLE (CLEAN + PERSISTENT)
-            ===================================== */
+            /* =========================================
+               THEME SYSTEM
+            ========================================= */
             const themeToggle = document.getElementById("themeToggle");
             const body = document.body;
 
@@ -1543,187 +1677,221 @@
                 }
             }
 
-            const savedTheme = localStorage.getItem("theme") || "dark";
-            setTheme(savedTheme);
+            setTheme(localStorage.getItem("theme") || "dark");
 
             themeToggle?.addEventListener("click", () => {
                 setTheme(body.classList.contains("light") ? "dark" : "light");
             });
 
-            /* =====================================
+
+            /* =========================================
+               NAVBAR SYSTEM
+            ========================================= */
+            const menuToggle = document.getElementById("menuToggle");
+            const navLinks = document.getElementById("navLinks");
+            const navItems = document.querySelectorAll(".nav-links a");
+            const indicator = document.getElementById("navIndicator");
+
+            menuToggle?.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+
+            navItems.forEach(link => {
+                link.addEventListener("click", () => {
+                    navLinks.classList.remove("active");
+                });
+            });
+
+            const sections = document.querySelectorAll("section");
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+
+                sections.forEach(section => {
+                    if (window.scrollY >= section.offsetTop - 100) {
+                        current = section.id;
+                    }
+                });
+
+                navItems.forEach(link => {
+                    link.classList.remove("active");
+
+                    if (link.getAttribute("href") === "#" + current) {
+                        link.classList.add("active");
+
+                        const rect = link.getBoundingClientRect();
+                        const parentRect = link.parentElement.getBoundingClientRect();
+
+                        indicator.style.width = rect.width + "px";
+                        indicator.style.left = (rect.left - parentRect.left) + "px";
+                    }
+                });
+            });
+
+
+            /* =========================================
+               TYPING ANIMATION (HERO)
+            ========================================= */
+            const typingEl = document.getElementById("typingText");
+            const titles = [
+                "Data Science Enthusiast",
+                "Machine Learning Specialist",
+                "SQL Developer",
+                "Data Analyst"
+            ];
+
+            let tIndex = 0, cIndex = 0;
+
+            function type() {
+                if (!typingEl) return;
+
+                if (cIndex < titles[tIndex].length) {
+                    typingEl.textContent += titles[tIndex][cIndex++];
+                    setTimeout(type, 90);
+                } else {
+                    setTimeout(erase, 1200);
+                }
+            }
+
+            function erase() {
+                if (cIndex > 0) {
+                    typingEl.textContent = titles[tIndex].slice(0, --cIndex);
+                    setTimeout(erase, 50);
+                } else {
+                    tIndex = (tIndex + 1) % titles.length;
+                    setTimeout(type, 300);
+                }
+            }
+
+            type();
+
+
+            /* =========================================
                SCROLL REVEAL
-            ===================================== */
+            ========================================= */
             const reveals = document.querySelectorAll(".reveal");
-            const revealObserver = new IntersectionObserver(
-                entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add("visible");
-                            revealObserver.unobserve(entry.target);
-                        }
-                    });
-                },
-                { threshold: 0.15 }
-            );
-            reveals.forEach(el => revealObserver.observe(el));
 
-            /* =====================================
-               HERO CANVAS BUBBLES
-            ===================================== */
-            const canvas = document.getElementById("hero-canvas");
-            if (canvas) {
-                const ctx = canvas.getContext("2d");
-                let bubbles = [];
-                let cw, ch;
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.15 });
 
-                function initCanvas() {
-                    cw = canvas.width = canvas.offsetWidth;
-                    ch = canvas.height = canvas.offsetHeight;
-                    bubbles = Array.from({ length: 40 }, () => ({
-                        x: Math.random() * cw,
-                        y: Math.random() * ch,
-                        r: 3 + Math.random() * 6,
-                        vy: -0.3 - Math.random() * 0.7,
+            reveals.forEach(el => observer.observe(el));
+
+
+            /* =========================================
+               HERO PARTICLES
+            ========================================= */
+            const heroCanvas = document.getElementById("hero-canvas");
+
+            if (heroCanvas) {
+                const ctx = heroCanvas.getContext("2d");
+                let particles = [];
+
+                function resize() {
+                    heroCanvas.width = heroCanvas.offsetWidth;
+                    heroCanvas.height = heroCanvas.offsetHeight;
+                }
+
+                function init() {
+                    particles = Array.from({ length: 40 }, () => ({
+                        x: Math.random() * heroCanvas.width,
+                        y: Math.random() * heroCanvas.height,
+                        r: Math.random() * 6 + 2,
                         vx: (Math.random() - 0.5) * 0.3,
-                        alpha: 0.2 + Math.random() * 0.5
+                        vy: -Math.random(),
                     }));
                 }
 
                 function draw() {
-                    ctx.clearRect(0, 0, cw, ch);
-                    bubbles.forEach(b => {
-                        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-                        g.addColorStop(0, `rgba(255,255,255,${b.alpha})`);
-                        g.addColorStop(1, "rgba(255,255,255,0)");
-                        ctx.fillStyle = g;
+                    ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+
+                    particles.forEach(p => {
                         ctx.beginPath();
-                        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        ctx.fillStyle = "rgba(255,255,255,0.2)";
                         ctx.fill();
 
-                        b.x += b.vx;
-                        b.y += b.vy;
-                        if (b.y + b.r < 0) {
-                            b.y = ch + b.r;
-                            b.x = Math.random() * cw;
-                        }
+                        p.x += p.vx;
+                        p.y += p.vy;
+
+                        if (p.y < 0) p.y = heroCanvas.height;
                     });
+
                     requestAnimationFrame(draw);
                 }
 
-                window.addEventListener("resize", initCanvas);
-                initCanvas();
+                resize();
+                init();
                 draw();
+                window.addEventListener("resize", resize);
             }
 
-            /* =====================================
-               VANILLA TILT
-            ===================================== */
-            if (window.VanillaTilt) {
-                VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-                    max: 10,
-                    speed: 300,
-                    glare: true,
-                    "max-glare": 0.2
-                });
-            }
 
-            /* =====================================
-               CERTIFICATES VIEWER
-            ===================================== */
-            const certImages = [
-                "python_basic_page1.png",
-                "sql_basic_page1.png",
-                "sql_intermediate_page1.png",
-                "sql_advanced_page1.png",
-                "problem_solving_intermediate_certificate_page_1.png",
-                "Deloite_certificate_page_1.png",
-                "ml_Aman_page_1.png",
-                "Aman_ML_page_1.png",
-                "Aman_AI_page_1.png",
-                "Aman_Gplus_page_1.png"
-            ];
-
-            let currentIndex = 0;
-            let slideshowTimer;
-
+            /* =========================================
+               CERTIFICATE VIEWER
+            ========================================= */
             const viewer = document.getElementById("cert-viewer");
             const fullImg = document.getElementById("cert-full");
-            const pdfViewer = document.getElementById("cert-pdf");
 
-            window.openCert = function (path) {
-                currentIndex = Math.max(certImages.indexOf(path), 0);
+            window.openCert = (src) => {
                 viewer.style.display = "flex";
-                updateViewer();
-                startSlideshow();
+                fullImg.src = src;
+                fullImg.style.display = "block";
             };
 
-            window.closeCert = function () {
+            window.closeCert = () => {
                 viewer.style.display = "none";
-                stopSlideshow();
             };
 
-            function updateViewer() {
-                const file = certImages[currentIndex];
-                const isPDF = file.toLowerCase().endsWith(".pdf");
-
-                fullImg.style.display = "none";
-                pdfViewer.style.display = "none";
-
-                if (isPDF) {
-                    pdfViewer.src = file;
-                    pdfViewer.style.display = "block";
-                } else {
-                    fullImg.src = file;
-                    fullImg.style.display = "block";
-                }
-            }
-
-            window.nextCert = function () {
-                currentIndex = (currentIndex + 1) % certImages.length;
-                updateViewer();
-            };
-
-            window.prevCert = function () {
-                currentIndex =
-                    (currentIndex - 1 + certImages.length) % certImages.length;
-                updateViewer();
-            };
-
-            function startSlideshow() {
-                stopSlideshow();
-                slideshowTimer = setInterval(nextCert, 4000);
-            }
-
-            function stopSlideshow() {
-                clearInterval(slideshowTimer);
-            }
-
-            /* Swipe support */
-            let startX = 0;
-
-            viewer.addEventListener("touchstart", e => {
-                startX = e.touches[0].clientX;
-            });
-
-            viewer.addEventListener("touchend", e => {
-                const diff = e.changedTouches[0].clientX - startX;
-                if (Math.abs(diff) > 60) {
-                    stopSlideshow();
-                    diff < 0 ? nextCert() : prevCert();
-                }
-            });
-
-            viewer.addEventListener("click", e => {
-                if (e.target === viewer) closeCert();
-            });
         });
 
+
+        /* =========================================
+           LOADER SYSTEM (SEPARATE)
+        ========================================= */
+
+        const loader = document.getElementById("loader");
+        const textEl = document.getElementById("loader-text");
+        const skipBtn = document.getElementById("skipBtn");
+        const sound = document.getElementById("introSound");
+
+        const text = "Welcome to my profile";
+        let index = 0;
+
+        function typeLoader(done) {
+            if (index < text.length) {
+                textEl.textContent += text[index++];
+                setTimeout(() => typeLoader(done), 70);
+            } else {
+                setTimeout(done, 1200);
+            }
+        }
+
+        function removeLoader() {
+            loader.classList.add("hidden");
+            setTimeout(() => loader.style.display = "none", 800);
+        }
+
+        function playSound() {
+            sound?.play().catch(() => {
+                document.addEventListener("click", () => sound.play(), { once: true });
+            });
+        }
+
+        window.addEventListener("load", () => {
+            document.body.style.overflow = "hidden";
+            playSound();
+            typeLoader(removeLoader);
+        });
+
+        skipBtn?.addEventListener("click", removeLoader);
     </script>
 
 
 </body>
 
 </html>
-
-
-
