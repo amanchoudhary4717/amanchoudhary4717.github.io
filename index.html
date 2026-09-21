@@ -1169,6 +1169,401 @@
             }
         }
 
+
+        /* ================= EDUCATION SECTION ================= */
+
+.education-section {
+    width: 100%;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.education-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* ================= SECTION HEADER ================= */
+
+.section-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 70px;
+}
+
+.section-tag {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.75;
+}
+
+.section-heading h2 {
+    font-size: clamp(36px, 5vw, 52px);
+    margin: 0 0 18px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.section-heading p {
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: 0.7;
+    margin: 0;
+}
+
+
+/* ================= TIMELINE ================= */
+
+.education-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+/* Vertical line */
+
+.education-timeline::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: currentColor;
+    opacity: 0.15;
+}
+
+
+/* ================= EDUCATION ITEM ================= */
+
+.education-item {
+    position: relative;
+    display: flex;
+    gap: 35px;
+    margin-bottom: 45px;
+}
+
+.education-item:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ================= TIMELINE DOT ================= */
+
+.education-dot {
+    position: relative;
+    z-index: 2;
+
+    width: 58px;
+    min-width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    border: 2px solid currentColor;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.35s ease;
+}
+
+.education-dot i {
+    font-size: 20px;
+}
+
+
+/* Current education dot */
+
+.education-item.current .education-dot {
+    transform: scale(1.05);
+}
+
+
+/* ================= EDUCATION CARD ================= */
+
+.education-card {
+    flex: 1;
+
+    padding: 32px;
+
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.10);
+
+    border-color: rgba(128, 128, 128, 0.4);
+}
+
+
+/* ================= CARD TOP ================= */
+
+.education-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+/* ================= STATUS ================= */
+
+.education-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 13px;
+
+    border-radius: 50px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.current-status {
+    background: rgba(0, 150, 136, 0.12);
+    color: #008f80;
+}
+
+.completed-status {
+    background: rgba(100, 100, 100, 0.1);
+    color: inherit;
+}
+
+
+/* ================= YEAR ================= */
+
+.education-year {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+
+/* ================= TITLES ================= */
+
+.education-card h3 {
+    font-size: 28px;
+    line-height: 1.2;
+
+    margin: 0 0 8px;
+
+    font-weight: 800;
+}
+
+.education-card h4 {
+    font-size: 17px;
+
+    margin: 0 0 18px;
+
+    font-weight: 600;
+
+    opacity: 0.75;
+}
+
+
+/* ================= INSTITUTE ================= */
+
+.education-institute {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 18px;
+
+    opacity: 0.8;
+}
+
+.education-institute i {
+    font-size: 14px;
+}
+
+
+/* ================= DESCRIPTION ================= */
+
+.education-description {
+    font-size: 15px;
+
+    line-height: 1.75;
+
+    margin: 0 0 22px;
+
+    opacity: 0.72;
+}
+
+
+/* ================= SKILLS ================= */
+
+.education-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.education-skills span {
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    background: rgba(128, 128, 128, 0.09);
+
+    border: 1px solid rgba(128, 128, 128, 0.12);
+
+    transition: all 0.25s ease;
+}
+
+.education-skills span:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ================= CURRENT EDUCATION ================= */
+
+.education-item.current .education-card {
+    border-width: 1.5px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .education-section {
+        padding: 75px 18px;
+    }
+
+    .section-heading {
+        margin-bottom: 50px;
+    }
+
+    .education-timeline::before {
+        left: 22px;
+    }
+
+    .education-item {
+        gap: 20px;
+    }
+
+    .education-dot {
+        width: 46px;
+        min-width: 46px;
+        height: 46px;
+    }
+
+    .education-dot i {
+        font-size: 16px;
+    }
+
+    .education-card {
+        padding: 24px;
+        border-radius: 16px;
+    }
+
+    .education-card h3 {
+        font-size: 22px;
+    }
+
+    .education-card h4 {
+        font-size: 15px;
+    }
+
+    .education-card-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .education-year {
+        order: -1;
+    }
+}
+
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 480px) {
+
+    .education-section {
+        padding: 60px 15px;
+    }
+
+    .education-item {
+        gap: 14px;
+    }
+
+    .education-timeline::before {
+        left: 19px;
+    }
+
+    .education-dot {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+    }
+
+    .education-dot i {
+        font-size: 14px;
+    }
+
+    .education-card {
+        padding: 20px;
+    }
+
+    .education-card h3 {
+        font-size: 20px;
+    }
+
+    .education-card h4 {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .education-description {
+        font-size: 14px;
+    }
+
+    .education-skills span {
+        font-size: 11px;
+        padding: 6px 9px;
+    }
+}
+
         /* =========================
    CINEMATIC SCENE SYSTEM
 ========================= */
@@ -1360,11 +1755,11 @@
             <div class="section-title">Who I Am</div>
             <div class="card story-block">
                 <p>
-                   I’m a Data Scientist and AI enthusiast focused on turning data into intelligent, practical solutions. I work with Python, SQL, Machine Learning, Power BI, and modern AI technologies to build data-driven applications and automation systems.
+                   I’m a Data Scientist and AI enthusiast focused on turning data into intelligent, practical solutions. I work with Python, SQL, Machine Learning, Power BI, and modern AI technologies to build data-driven applications and automation systems. <br>
 
-My journey started with a background in Science and Education, which developed my analytical thinking and problem-solving approach. I later expanded my expertise into Data Science and Artificial Intelligence, working on real-world projects involving Machine Learning, predictive analytics, dashboards, computer vision, and AI-powered applications.
+My journey started with a background in Science and Education, which developed my analytical thinking and problem-solving approach. I later expanded my expertise into Data Science and Artificial Intelligence, working on real-world projects involving Machine Learning, predictive analytics, dashboards, computer vision, and AI-powered applications.<br>
 
-Currently, I’m pursuing <strong> Master of Computer Applications (MCA) in Data Science & AI,</strong> where I’m strengthening my knowledge of advanced data science, artificial intelligence, machine learning, and software development.
+Currently, I’m pursuing <strong> Master of Computer Applications (MCA) in Data Science & AI,</strong> where I’m strengthening my knowledge of advanced data science, artificial intelligence, machine learning, and software development.<br>
 
 I enjoy building projects that go beyond experiments and solve practical problems. My goal is to grow as a Data Scientist and AI Engineer and develop intelligent systems that create measurable real-world impact.
                 </p>
@@ -1375,6 +1770,133 @@ I enjoy building projects that go beyond experiments and solve practical problem
                 </p>
             </div>
         </section>
+
+        <!-- ================= EDUCATION SECTION ================= -->
+<section id="education" class="education-section">
+    <div class="education-container">
+
+        <!-- Section Header -->
+        <div class="section-heading">
+            <span class="section-tag">MY JOURNEY</span>
+            <h2>Education</h2>
+            <p>
+                My academic journey from a science and education background
+                to Data Science and Artificial Intelligence.
+            </p>
+        </div>
+
+        <!-- Education Timeline -->
+        <div class="education-timeline">
+
+            <!-- MCA -->
+            <div class="education-item current">
+
+                <div class="education-dot">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+
+                <div class="education-card">
+
+<!-- MCA -->
+<div class="education-item current">
+
+    <div class="education-dot">
+        <i class="fas fa-graduation-cap"></i>
+    </div>
+
+    <div class="education-card">
+
+        <div class="education-card-top">
+            <span class="education-status current-status">
+                Currently Pursuing
+            </span>
+
+            <span class="education-year">
+                2026 - Present
+            </span>
+        </div>
+
+        <h3>Master of Computer Applications</h3>
+
+        <h4>
+            MCA in Data Science & Artificial Intelligence
+        </h4>
+
+        <p class="education-institute">
+            <i class="fas fa-university"></i>
+            Manipal University Jaipur
+        </p>
+
+        <p class="education-description">
+            Currently expanding my expertise in Data Science,
+            Artificial Intelligence, Machine Learning, Deep Learning,
+            statistical analysis, and intelligent application development.
+        </p>
+
+        <div class="education-skills">
+            <span>Data Science</span>
+            <span>Artificial Intelligence</span>
+            <span>Machine Learning</span>
+            <span>Python</span>
+            <span>Data Analytics</span>
+        </div>
+
+    </div>
+</div>
+
+
+            <!-- B.Sc B.Ed -->
+            <div class="education-item">
+
+                <div class="education-dot">
+                    <i class="fas fa-book"></i>
+                </div>
+
+                <div class="education-card">
+
+                    <div class="education-card-top">
+                        <span class="education-status completed-status">
+                            Completed
+                        </span>
+
+                        <span class="education-year">
+                            Previous
+                        </span>
+                    </div>
+
+                    <h3>B.Sc. B.Ed.</h3>
+
+                    <h4>
+                        Bachelor of Science & Bachelor of Education
+                    </h4>
+
+                    <p class="education-institute">
+                        <i class="fas fa-university"></i>
+                        Bhagwant University, Ajmer
+                    </p>
+
+                    <p class="education-description">
+                        Developed a strong foundation in science, mathematics,
+                        analytical thinking, problem-solving, and structured
+                        learning. This academic background helped build the
+                        foundation for my transition into Data Science and
+                        Artificial Intelligence.
+                    </p>
+
+                    <div class="education-skills">
+                        <span>Science</span>
+                        <span>Mathematics</span>
+                        <span>Analytical Thinking</span>
+                        <span>Problem Solving</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
 
         <!-- Skills -->
         <section id="skills" class="reveal scene">
